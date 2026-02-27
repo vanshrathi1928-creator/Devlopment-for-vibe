@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Cart — Suvarna Chanderi</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ivory:  #f9f4ec;
+    --cream:  #f2e9d8;
+    --gold:   #c8972a;
+    --gold2:  #e8c06a;
+    --rust:   #a63d2f;
+    --teal:   #2a6b6e;
+    --ink:    #1c1812;
+    --muted:  #8a7e6e;
+    --border: #ddd0b8;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Jost', sans-serif;
+    background: var(--ivory);
+    color: var(--ink);
+    min-height: 100vh;
+  }
+
+  /* NAVBAR */
+  .navbar {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(28,24,18,0.97);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(200,151,42,0.18);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 3rem; height: 58px; gap: 1.5rem;
+  }
+  .nav-brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem; font-weight: 600;
+    color: var(--gold2); letter-spacing: 0.08em;
+  }
+  .nav-brand span { color: var(--muted); font-weight: 300; }
+  .back-btn {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.72rem; font-weight: 400;
+    color: var(--muted); text-decoration: none;
+    display: flex; align-items: center; gap: 0.4rem;
+    letter-spacing: 0.06em; transition: color 0.2s;
+  }
+  .back-btn:hover { color: var(--gold2); }
+
+  /* PAGE HEADER */
+  .page-header {
+    background: var(--ink);
+    padding: 4rem 5rem 3rem;
+    position: relative; overflow: hidden;
+  }
+  .page-header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(200,151,42,0.03) 3px, rgba(200,151,42,0.03) 4px),
+      repeating-linear-gradient(90deg, transparent, transparent 3px, rgba(200,151,42,0.03) 3px, rgba(200,151,42,0.03) 4px);
+    pointer-events: none;
+  }
+  .page-eyebrow {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.6rem; font-weight: 300;
+    letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 0.75rem;
+  }
+  .page-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 4vw, 4rem);
+    font-weight: 300; line-height: 1.05;
+    color: var(--ivory);
+  }
+  .page-title em { font-style: italic; color: var(--gold2); }
+  .page-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.95rem; font-weight: 300;
+    font-style: italic; color: var(--muted);
+    margin-top: 0.5rem;
+  }
+
+  /* MAIN LAYOUT */
+  .cart-layout {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 5rem 5rem;
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  /* CART ITEMS */
+  .cart-items-wrap {}
+
+  .cart-section-title {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.6rem; font-weight: 300;
+    letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 1.25rem;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+
+  .clear-btn {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.6rem; letter-spacing: 0.1em;
+    color: var(--rust); cursor: pointer;
+    background: none; border: none;
+    text-transform: uppercase;
+    transition: opacity 0.2s;
+  }
+  .clear-btn:hover { opacity: 0.6; }
+
+  .cart-item {
+    display: grid;
+    grid-template-columns: 80px 1fr auto;
+    gap: 1.25rem;
+    align-items: center;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--border);
+    animation: fadeUp 0.3s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .item-thumb {
+    width: 80px; height: 96px;
+    border-radius: 3px;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .item-thumb::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 50%);
+  }
+
+  .item-details {}
+  .item-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem; font-weight: 600;
+    color: var(--ink); margin-bottom: 0.2rem;
+  }
+  .item-variant {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.68rem; font-weight: 300;
+    color: var(--muted); letter-spacing: 0.06em;
+    text-transform: uppercase; margin-bottom: 0.5rem;
+  }
+  .item-weaver {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.78rem; font-style: italic;
+    color: var(--gold); margin-bottom: 0.85rem;
+  }
+
+  /* Quantity stepper */
+  .qty-row {
+    display: flex; align-items: center; gap: 0;
+  }
+  .qty-btn {
+    width: 28px; height: 28px;
+    background: var(--cream); border: 1px solid var(--border);
+    cursor: pointer; font-size: 0.9rem; line-height: 1;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.15s, border-color 0.15s;
+    color: var(--ink); font-family: 'Jost', sans-serif;
+  }
+  .qty-btn:first-child { border-radius: 3px 0 0 3px; }
+  .qty-btn:last-child  { border-radius: 0 3px 3px 0; }
+  .qty-btn:hover { background: var(--border); border-color: var(--muted); }
+  .qty-display {
+    width: 36px; height: 28px;
+    border: 1px solid var(--border); border-left: none; border-right: none;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Jost', sans-serif; font-size: 0.8rem; font-weight: 400;
+    color: var(--ink); background: var(--ivory);
+  }
+
+  .item-right {
+    display: flex; flex-direction: column;
+    align-items: flex-end; gap: 0.75rem;
+  }
+  .item-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem; font-weight: 600; color: var(--gold);
+  }
+  .item-unit-price {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.62rem; font-weight: 300; color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+  .remove-btn {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.62rem; font-weight: 300;
+    color: var(--muted); background: none; border: none;
+    cursor: pointer; letter-spacing: 0.06em;
+    text-transform: uppercase; transition: color 0.15s;
+  }
+  .remove-btn:hover { color: var(--rust); }
+
+  /* Empty cart */
+  .empty-cart {
+    text-align: center;
+    padding: 5rem 2rem;
+  }
+  .empty-icon { font-size: 3rem; margin-bottom: 1.5rem; opacity: 0.4; }
+  .empty-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem; font-weight: 300; font-style: italic;
+    color: var(--ink); margin-bottom: 0.75rem;
+  }
+  .empty-sub {
+    font-size: 0.82rem; font-weight: 300; color: var(--muted);
+    margin-bottom: 2rem; line-height: 1.7;
+  }
+  .shop-link {
+    display: inline-block;
+    padding: 0.7rem 2rem;
+    background: var(--ink); color: var(--gold2);
+    text-decoration: none;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.72rem; font-weight: 400;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    border-radius: 2px; transition: background 0.2s;
+  }
+  .shop-link:hover { background: var(--gold); color: var(--ink); }
+
+  /* ORDER SUMMARY */
+  .summary-panel {
+    position: sticky; top: 76px;
+    background: var(--ink);
+    border-radius: 4px;
+    padding: 2rem;
+    color: var(--ivory);
+  }
+  .summary-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem; font-weight: 600;
+    color: var(--gold2); margin-bottom: 1.5rem;
+    letter-spacing: 0.02em;
+  }
+  .summary-row {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 0.55rem 0;
+    border-bottom: 1px solid rgba(200,151,42,0.1);
+    font-family: 'Jost', sans-serif;
+    font-size: 0.78rem; font-weight: 300; color: #a89e8a;
+  }
+  .summary-row:last-of-type { border-bottom: none; }
+  .summary-row.total {
+    font-size: 1rem; font-weight: 400;
+    color: var(--ivory); margin-top: 0.5rem;
+    padding-top: 0.75rem; border-top: 1px solid rgba(200,151,42,0.25);
+  }
+  .summary-row.total span:last-child {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem; font-weight: 600; color: var(--gold2);
+  }
+  .summary-note {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.72rem; font-style: italic; color: #6a6050;
+    margin: 1.25rem 0; line-height: 1.6;
+  }
+  .checkout-btn {
+    width: 100%;
+    padding: 0.9rem;
+    background: var(--gold);
+    color: var(--ink);
+    border: none; border-radius: 2px;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.75rem; font-weight: 500;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    cursor: pointer; transition: background 0.2s;
+    margin-bottom: 0.75rem;
+  }
+  .checkout-btn:hover { background: var(--gold2); }
+  .continue-btn {
+    display: block; width: 100%; text-align: center;
+    padding: 0.7rem;
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid rgba(200,151,42,0.2);
+    border-radius: 2px;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.7rem; font-weight: 300;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    text-decoration: none; transition: border-color 0.2s, color 0.2s;
+  }
+  .continue-btn:hover { border-color: rgba(200,151,42,0.5); color: var(--gold2); }
+
+  /* Artisan badge in summary */
+  .artisan-badge {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: rgba(200,151,42,0.06);
+    border: 1px solid rgba(200,151,42,0.15);
+    border-radius: 4px;
+  }
+  .artisan-badge-title {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.55rem; font-weight: 400;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 0.4rem;
+  }
+  .artisan-badge-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.78rem; font-style: italic;
+    color: #a89e8a; line-height: 1.55;
+  }
+
+  @media (max-width: 900px) {
+    .navbar { padding: 0 1.25rem; }
+    .page-header { padding: 3rem 1.5rem 2rem; }
+    .cart-layout { grid-template-columns: 1fr; padding: 2rem 1.5rem; }
+    .summary-panel { position: static; }
+    .cart-item { grid-template-columns: 64px 1fr auto; gap: 0.85rem; }
+    .item-thumb { width: 64px; height: 76px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-left" style="display:flex;align-items:center;gap:1.5rem;">
+    <a href="chanderi-textile-concept.html" class="back-btn">← Back to Shop</a>
+    <div class="nav-brand">Suvarna <span>Chanderi</span> ✦</div>
+  </div>
+  <a href="cart.html" class="nav-cart-btn" style="position:relative;display:flex;align-items:center;gap:0.5rem;padding:0.45rem 1.2rem;background:rgba(200,151,42,0.18);border:1px solid rgba(200,151,42,0.5);border-radius:999px;font-family:'Jost',sans-serif;font-size:0.75rem;font-weight:400;color:#e8c06a;text-decoration:none;letter-spacing:0.05em;white-space:nowrap;">
+    🛒 Your Cart
+  </a>
+</nav>
+
+<div class="page-header">
+  <div class="page-eyebrow">Suvarna Chanderi · Your Selection</div>
+  <h1 class="page-title">Your <em>Cart</em></h1>
+  <div class="page-sub" id="cartSubtitle">Loading…</div>
+</div>
+
+<div class="cart-layout">
+
+  <!-- LEFT: ITEMS -->
+  <div class="cart-items-wrap">
+    <div class="cart-section-title">
+      <span id="itemCountLabel">Items</span>
+      <button class="clear-btn" onclick="clearCart()">Clear All</button>
+    </div>
+    <div id="cartItemsContainer">
+      <!-- Rendered by JS -->
+    </div>
+  </div>
+
+  <!-- RIGHT: SUMMARY -->
+  <div class="summary-panel">
+    <div class="summary-title">Order Summary</div>
+    <div id="summaryRows">
+      <!-- Rendered by JS -->
+    </div>
+    <div class="summary-note" id="summaryNote"></div>
+    <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
+    <a href="chanderi-textile-concept.html" class="continue-btn">← Continue Shopping</a>
+
+    <div class="artisan-badge">
+      <div class="artisan-badge-title">✦ Artisan Promise</div>
+      <div class="artisan-badge-text">
+        Every piece ships with a handwritten card bearing the weaver's name, village, and years of practice — your connection to the loom.
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// Shared product data (needed for thumbnail colors)
+const PRODUCT_COLORS = {
+  'sc-001': 'linear-gradient(145deg,#c8972a,#8a5c1a)',
+  'sc-002': 'linear-gradient(145deg,#2a6b6e,#1a3f41)',
+  'sc-003': 'linear-gradient(145deg,#f2e9d8,#c8a870)',
+  'sc-004': 'linear-gradient(145deg,#a63d2f,#5a1a10)',
+  'sc-005': 'linear-gradient(145deg,#e8c06a,#a07830)',
+  'sc-006': 'linear-gradient(145deg,#2a6b6e,#c8972a)',
+  'sc-007': 'linear-gradient(145deg,#2a2418,#1c1812)',
+  'sc-008': 'linear-gradient(145deg,#f2e9d8,#a63d2f)',
+};
+
+function getCart() {
+  try { return JSON.parse(localStorage.getItem('suvarna_cart') || '[]'); }
+  catch { return []; }
+}
+
+function saveCart(cart) {
+  localStorage.setItem('suvarna_cart', JSON.stringify(cart));
+}
+
+function renderCart() {
+  const cart = getCart();
+  const container = document.getElementById('cartItemsContainer');
+  const summaryRows = document.getElementById('summaryRows');
+  const subtitle = document.getElementById('cartSubtitle');
+  const itemCountLabel = document.getElementById('itemCountLabel');
+  const summaryNote = document.getElementById('summaryNote');
+
+  const totalItems = cart.reduce((s, i) => s + i.qty, 0);
+  itemCountLabel.textContent = totalItems === 0 ? 'Items' : `${totalItems} Item${totalItems !== 1 ? 's' : ''}`;
+
+  if (cart.length === 0) {
+    subtitle.textContent = 'Your cart is empty — explore the collection';
+    container.innerHTML = `
+      <div class="empty-cart">
+        <div class="empty-icon">🛒</div>
+        <div class="empty-title">Your cart awaits a story</div>
+        <div class="empty-sub">Each Chanderi piece is a singular work of art.<br>Browse the collection and add something meaningful.</div>
+        <a href="chanderi-textile-concept.html#shop" class="shop-link">Explore the Collection</a>
+      </div>
+    `;
+    summaryRows.innerHTML = `
+      <div class="summary-row"><span>Subtotal</span><span>₹0</span></div>
+      <div class="summary-row"><span>Shipping</span><span>—</span></div>
+      <div class="summary-row total"><span>Total</span><span>₹0</span></div>
+    `;
+    summaryNote.textContent = '';
+    return;
+  }
+
+  subtitle.textContent = `${totalItems} handwoven piece${totalItems !== 1 ? 's' : ''} — curated with care`;
+
+  // Items HTML
+  container.innerHTML = cart.map((item, idx) => `
+    <div class="cart-item" style="animation-delay:${idx * 0.06}s">
+      <div class="item-thumb" style="background:${PRODUCT_COLORS[item.id] || '#c8972a'};"></div>
+      <div class="item-details">
+        <div class="item-name">${item.name}</div>
+        <div class="item-variant">${item.variant}</div>
+        <div class="item-weaver">Woven by ${item.weaver}</div>
+        <div class="qty-row">
+          <button class="qty-btn" onclick="changeQty('${item.id}', -1)">−</button>
+          <div class="qty-display">${item.qty}</div>
+          <button class="qty-btn" onclick="changeQty('${item.id}', 1)">+</button>
+        </div>
+      </div>
+      <div class="item-right">
+        <div>
+          <div class="item-price">₹${(item.price * item.qty).toLocaleString('en-IN')}</div>
+          ${item.qty > 1 ? `<div class="item-unit-price">₹${item.price.toLocaleString('en-IN')} each</div>` : ''}
+        </div>
+        <button class="remove-btn" onclick="removeItem('${item.id}')">Remove</button>
+      </div>
+    </div>
+  `).join('');
+
+  // Summary
+  const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
+  const shipping = subtotal > 10000 ? 0 : 350;
+  const total = subtotal + shipping;
+
+  summaryRows.innerHTML = `
+    <div class="summary-row"><span>Subtotal (${totalItems} items)</span><span>₹${subtotal.toLocaleString('en-IN')}</span></div>
+    <div class="summary-row"><span>Shipping</span><span>${shipping === 0 ? '<span style="color:#4ae0a8;font-size:0.7rem;">Free</span>' : '₹' + shipping}</span></div>
+    <div class="summary-row"><span>GI Certificate & Weaver Card</span><span style="color:#4ae0a8;font-size:0.7rem;">Included</span></div>
+    <div class="summary-row total"><span>Total</span><span>₹${total.toLocaleString('en-IN')}</span></div>
+  `;
+
+  summaryNote.textContent = shipping === 0
+    ? '✦ Free shipping on this order'
+    : `₹${(10000 - subtotal).toLocaleString('en-IN')} more for free shipping`;
+}
+
+function changeQty(id, delta) {
+  const cart = getCart();
+  const item = cart.find(i => i.id === id);
+  if (!item) return;
+  item.qty += delta;
+  if (item.qty <= 0) {
+    const idx = cart.indexOf(item);
+    cart.splice(idx, 1);
+  }
+  saveCart(cart);
+  renderCart();
+}
+
+function removeItem(id) {
+  const cart = getCart().filter(i => i.id !== id);
+  saveCart(cart);
+  renderCart();
+}
+
+function clearCart() {
+  if (!confirm('Remove all items from your cart?')) return;
+  localStorage.removeItem('suvarna_cart');
+  renderCart();
+}
+
+function checkout() {
+  const cart = getCart();
+  if (cart.length === 0) {
+    alert('Your cart is empty.');
+    return;
+  }
+  const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+  alert(`✦ Thank you for choosing Suvarna Chanderi.\n\nOrder total: ₹${total.toLocaleString('en-IN')}\n\nThis is a demo — in a real store, you'd proceed to payment here.`);
+}
+
+// Init
+document.addEventListener('DOMContentLoaded', renderCart);
+</script>
+</body>
+</html>

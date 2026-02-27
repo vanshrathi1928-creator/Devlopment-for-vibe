@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product — Suvarna Chanderi</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ivory:  #f9f4ec;
+    --cream:  #f2e9d8;
+    --gold:   #c8972a;
+    --gold2:  #e8c06a;
+    --rust:   #a63d2f;
+    --teal:   #2a6b6e;
+    --ink:    #1c1812;
+    --muted:  #8a7e6e;
+    --border: #ddd0b8;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Jost', sans-serif;
+    background: var(--ivory);
+    color: var(--ink);
+    min-height: 100vh;
+  }
+
+  /* ── NAVBAR ── */
+  .navbar {
+    position: sticky; top: 0; z-index: 200;
+    background: rgba(28,24,18,0.97);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(200,151,42,0.18);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 3rem; height: 58px; gap: 1.5rem;
+  }
+  .nav-left { display: flex; align-items: center; gap: 1.5rem; }
+  .back-link {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.7rem; font-weight: 300;
+    color: var(--muted); text-decoration: none;
+    letter-spacing: 0.06em; display: flex; align-items: center; gap: 0.35rem;
+    transition: color 0.2s;
+  }
+  .back-link:hover { color: var(--gold2); }
+  .nav-brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem; font-weight: 600;
+    color: var(--gold2); letter-spacing: 0.08em;
+    text-decoration: none;
+  }
+  .nav-brand span { color: var(--muted); font-weight: 300; }
+
+  /* Cart button — top right */
+  .nav-cart-btn {
+    position: relative;
+    display: flex; align-items: center; gap: 0.5rem;
+    padding: 0.45rem 1.2rem;
+    background: rgba(200,151,42,0.1);
+    border: 1px solid rgba(200,151,42,0.35);
+    border-radius: 999px;
+    cursor: pointer;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.75rem; font-weight: 400;
+    color: #c8972a; text-decoration: none;
+    letter-spacing: 0.05em;
+    transition: background 0.2s, border-color 0.2s;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .nav-cart-btn:hover { background: rgba(200,151,42,0.2); border-color: rgba(200,151,42,0.6); }
+  .cart-badge {
+    position: absolute; top: -6px; right: -6px;
+    min-width: 18px; height: 18px;
+    background: var(--rust); color: #fff;
+    border-radius: 999px; font-size: 0.6rem; font-weight: 500;
+    display: none; align-items: center; justify-content: center;
+    padding: 0 4px; line-height: 1;
+    animation: popIn 0.25s cubic-bezier(.175,.885,.32,1.275) both;
+  }
+  .cart-badge.show { display: flex; }
+  @keyframes popIn {
+    from { transform: scale(0); opacity: 0; }
+    to   { transform: scale(1); opacity: 1; }
+  }
+
+  /* ── BREADCRUMB ── */
+  .breadcrumb {
+    padding: 1rem 5rem;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.65rem; font-weight: 300;
+    color: var(--muted); letter-spacing: 0.08em;
+    border-bottom: 1px solid var(--border);
+    background: var(--ivory);
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .breadcrumb a { color: var(--muted); text-decoration: none; transition: color 0.15s; }
+  .breadcrumb a:hover { color: var(--gold); }
+  .breadcrumb-sep { opacity: 0.4; }
+  .breadcrumb-current { color: var(--ink); }
+
+  /* ── PRODUCT LAYOUT ── */
+  .product-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  /* ── LEFT: VISUAL ── */
+  .product-visual { position: sticky; top: 78px; }
+
+  .product-image-main {
+    width: 100%;
+    aspect-ratio: 3/4;
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 32px 64px rgba(28,24,18,0.18), 0 8px 24px rgba(28,24,18,0.1);
+    margin-bottom: 1.25rem;
+  }
+
+  /* Woven texture overlay */
+  .product-image-main::before {
+    content: '';
+    position: absolute; inset: 0; z-index: 1;
+    background-image:
+      repeating-linear-gradient(45deg, rgba(255,255,255,0.025) 0px, rgba(255,255,255,0.025) 1px, transparent 1px, transparent 10px),
+      repeating-linear-gradient(-45deg, rgba(0,0,0,0.025) 0px, rgba(0,0,0,0.025) 1px, transparent 1px, transparent 10px);
+  }
+
+  .product-image-main::after {
+    content: '';
+    position: absolute; inset: 0; z-index: 2;
+    background: linear-gradient(160deg, rgba(255,255,255,0.15) 0%, transparent 45%, rgba(0,0,0,0.12) 100%);
+  }
+
+  .product-image-border-top,
+  .product-image-border-bottom {
+    position: absolute; left: 0; right: 0; height: 64px; z-index: 3;
+    background: rgba(28,24,18,0.82);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .product-image-border-top { top: 0; }
+  .product-image-border-bottom { bottom: 0; }
+
+  .zari-pattern {
+    display: flex; gap: 10px; align-items: center;
+  }
+  .zari-unit {
+    width: 14px; height: 14px;
+    border: 1px solid var(--gold); transform: rotate(45deg);
+    opacity: 0.6; flex-shrink: 0;
+  }
+  .zari-unit.f { background: var(--gold); opacity: 0.4; }
+
+  .product-center-motif {
+    position: absolute; inset: 64px; z-index: 3;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  @keyframes shimmer {
+    0%, 100% { opacity: 0.55; }
+    50% { opacity: 1; }
+  }
+  .shimmer { animation: shimmer 4s ease-in-out infinite; }
+
+  /* Tag badges row */
+  .product-tags-row {
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+  }
+  .ptag {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.6rem; font-weight: 400;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 0.3rem 0.8rem;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    background: var(--ivory);
+  }
+  .ptag.gold { border-color: rgba(200,151,42,0.4); color: var(--gold); background: rgba(200,151,42,0.06); }
+  .ptag.teal { border-color: rgba(42,107,110,0.4); color: var(--teal); background: rgba(42,107,110,0.06); }
+
+  /* ── RIGHT: INFO ── */
+  .product-info-panel {}
+
+  .product-eyebrow {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.6rem; font-weight: 300;
+    letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 0.6rem;
+  }
+
+  .product-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 300; line-height: 1.1;
+    color: var(--ink); margin-bottom: 0.4rem;
+  }
+  .product-title em { font-style: italic; color: var(--rust); }
+
+  .product-variant-label {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.75rem; font-weight: 300;
+    color: var(--muted); letter-spacing: 0.08em;
+    text-transform: uppercase; margin-bottom: 1.5rem;
+  }
+
+  .product-price-block {
+    display: flex; align-items: baseline; gap: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+  .product-price-main {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem; font-weight: 600; color: var(--gold);
+    line-height: 1;
+  }
+  .product-price-note {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.68rem; font-weight: 300; color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+  .product-shipping-note {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.7rem; font-weight: 300;
+    color: var(--teal); margin-bottom: 2rem;
+    letter-spacing: 0.04em;
+  }
+
+  /* Divider line */
+  .info-divider {
+    border: none; border-top: 1px solid var(--border); margin: 1.75rem 0;
+  }
+
+  /* Qty + Add to cart */
+  .purchase-row {
+    display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem;
+  }
+
+  .qty-stepper {
+    display: flex; align-items: center;
+    border: 1px solid var(--border); border-radius: 3px; overflow: hidden;
+    flex-shrink: 0;
+  }
+  .qty-btn {
+    width: 36px; height: 44px;
+    background: var(--cream); border: none; cursor: pointer;
+    font-size: 1rem; color: var(--ink);
+    transition: background 0.15s; font-family: 'Jost', sans-serif;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .qty-btn:hover { background: var(--border); }
+  .qty-num {
+    width: 44px; height: 44px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Jost', sans-serif; font-size: 0.9rem;
+    color: var(--ink); border-left: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+    background: var(--ivory);
+  }
+
+  .add-btn {
+    flex: 1;
+    padding: 0 1.5rem; height: 44px;
+    background: var(--ink); color: var(--gold2);
+    border: none; border-radius: 3px; cursor: pointer;
+    font-family: 'Jost', sans-serif; font-size: 0.75rem;
+    font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase;
+    transition: background 0.2s, color 0.2s;
+    display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+  }
+  .add-btn:hover { background: var(--gold); color: var(--ink); }
+  .add-btn.added { background: var(--teal); color: #fff; }
+
+  .wishlist-btn {
+    width: 44px; height: 44px;
+    background: var(--ivory); border: 1px solid var(--border);
+    border-radius: 3px; cursor: pointer; font-size: 1.1rem;
+    transition: border-color 0.2s, background 0.2s;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .wishlist-btn:hover { border-color: var(--rust); background: rgba(166,61,47,0.05); }
+
+  /* Info accordion sections */
+  .info-accordion { border-top: 1px solid var(--border); }
+
+  .accordion-item { border-bottom: 1px solid var(--border); }
+
+  .accordion-header {
+    width: 100%; background: none; border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.1rem 0;
+    font-family: 'Jost', sans-serif; font-size: 0.78rem;
+    font-weight: 400; letter-spacing: 0.06em;
+    color: var(--ink); text-align: left;
+    transition: color 0.15s;
+  }
+  .accordion-header:hover { color: var(--gold); }
+  .accordion-arrow {
+    font-size: 0.7rem; color: var(--muted);
+    transition: transform 0.25s;
+  }
+  .accordion-item.open .accordion-arrow { transform: rotate(180deg); }
+
+  .accordion-body {
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.35s ease, padding 0.25s;
+    padding: 0;
+  }
+  .accordion-item.open .accordion-body {
+    max-height: 600px;
+    padding-bottom: 1.25rem;
+  }
+
+  .accordion-content {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.82rem; font-weight: 300;
+    line-height: 1.85; color: #5a4e40;
+  }
+
+  .accordion-content p + p { margin-top: 0.85em; }
+
+  .spec-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 0.25rem;
+  }
+  .spec-table tr { border-bottom: 1px solid rgba(221,208,184,0.5); }
+  .spec-table tr:last-child { border-bottom: none; }
+  .spec-table td {
+    padding: 0.55rem 0;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.78rem; font-weight: 300;
+    vertical-align: top;
+    line-height: 1.5;
+  }
+  .spec-table td:first-child {
+    color: var(--muted); width: 40%;
+    font-size: 0.7rem; letter-spacing: 0.04em;
+    text-transform: uppercase; padding-right: 1rem;
+  }
+  .spec-table td:last-child { color: var(--ink); }
+
+  /* Weaver spotlight */
+  .weaver-card {
+    display: flex; gap: 1rem; align-items: flex-start;
+    padding: 1.25rem;
+    background: var(--cream);
+    border-radius: 4px;
+    border-left: 3px solid var(--gold);
+    margin-top: 0.25rem;
+  }
+  .weaver-avatar {
+    width: 52px; height: 52px; border-radius: 50%;
+    flex-shrink: 0; display: flex; align-items: center;
+    justify-content: center; font-size: 1.4rem;
+    background: var(--ink);
+  }
+  .weaver-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem; font-weight: 600; color: var(--ink);
+    margin-bottom: 0.15rem;
+  }
+  .weaver-meta {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.65rem; font-weight: 300; color: var(--gold);
+    letter-spacing: 0.06em; text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .weaver-bio {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.82rem; font-style: italic;
+    color: var(--muted); line-height: 1.6;
+  }
+
+  /* Care icons */
+  .care-icons {
+    display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 0.25rem;
+  }
+  .care-item {
+    display: flex; align-items: center; gap: 0.45rem;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.7rem; font-weight: 300; color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+  .care-icon { font-size: 1rem; }
+
+  /* Sustainability tags */
+  .eco-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.25rem; }
+  .eco-tag {
+    display: flex; align-items: center; gap: 0.4rem;
+    padding: 0.35rem 0.8rem;
+    border: 1px solid rgba(42,107,110,0.3);
+    border-radius: 999px;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.65rem; font-weight: 300;
+    color: var(--teal); background: rgba(42,107,110,0.05);
+    letter-spacing: 0.04em;
+  }
+  .eco-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--teal); }
+
+  /* ── RELATED PRODUCTS ── */
+  .related-section {
+    border-top: 1px solid var(--border);
+    padding: 4rem 5rem 5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .related-eyebrow {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 0.5rem;
+  }
+  .related-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem; font-weight: 300; color: var(--ink);
+    margin-bottom: 2rem;
+  }
+  .related-title em { font-style: italic; color: var(--rust); }
+
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+  }
+
+  .related-card {
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    border-radius: 3px; overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.22s, box-shadow 0.22s;
+    text-decoration: none; color: inherit;
+    display: block;
+  }
+  .related-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 28px rgba(28,24,18,0.1);
+  }
+  .related-thumb {
+    height: 120px; position: relative; overflow: hidden;
+  }
+  .related-thumb::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 60%);
+  }
+  .related-info { padding: 0.85rem 1rem 1rem; }
+  .related-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.9rem; font-weight: 600; color: var(--ink);
+    margin-bottom: 0.15rem;
+  }
+  .related-price {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.7rem; font-weight: 300; color: var(--gold);
+    letter-spacing: 0.04em;
+  }
+
+  /* ── TOAST ── */
+  .toast {
+    position: fixed;
+    bottom: 2rem; right: 2rem;
+    background: #1c1812;
+    border: 1px solid rgba(200,151,42,0.35);
+    border-left: 3px solid var(--gold);
+    border-radius: 8px;
+    padding: 0.85rem 1.25rem;
+    display: flex; align-items: center; gap: 0.75rem;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    z-index: 9999;
+    transform: translateY(120%);
+    transition: transform 0.35s cubic-bezier(.175,.885,.32,1.275);
+    min-width: 260px; max-width: 340px;
+  }
+  .toast.show { transform: translateY(0); }
+  .toast-icon { font-size: 1.1rem; flex-shrink: 0; }
+  .toast-content { flex: 1; }
+  .toast-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.9rem; color: #e8c06a; margin-bottom: 0.15rem;
+  }
+  .toast-sub {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.65rem; font-weight: 300; color: #6a6050; letter-spacing: 0.04em;
+  }
+  .toast-link {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.65rem; color: #c8972a;
+    text-decoration: none; border: 1px solid rgba(200,151,42,0.3);
+    padding: 0.25rem 0.6rem; border-radius: 4px;
+    transition: background 0.15s; white-space: nowrap; letter-spacing: 0.04em;
+  }
+  .toast-link:hover { background: rgba(200,151,42,0.1); }
+
+  /* ── NOT FOUND ── */
+  .not-found {
+    text-align: center; padding: 8rem 2rem;
+    font-family: 'Cormorant Garamond', serif;
+  }
+  .not-found h2 { font-size: 2rem; font-weight: 300; font-style: italic; color: var(--ink); margin-bottom: 1rem; }
+  .not-found p { font-size: 0.9rem; color: var(--muted); margin-bottom: 2rem; }
+  .not-found a {
+    font-family: 'Jost', sans-serif; font-size: 0.72rem;
+    padding: 0.7rem 2rem; background: var(--ink); color: var(--gold2);
+    text-decoration: none; border-radius: 2px; letter-spacing: 0.1em; text-transform: uppercase;
+  }
+
+  @media (max-width: 900px) {
+    .navbar { padding: 0 1.25rem; }
+    .breadcrumb { padding: 0.75rem 1.5rem; }
+    .product-page { grid-template-columns: 1fr; padding: 2rem 1.5rem; gap: 2.5rem; }
+    .product-visual { position: static; }
+    .related-section { padding: 3rem 1.5rem; }
+    .related-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── NAVBAR ── -->
+<nav class="navbar">
+  <div class="nav-left">
+    <a href="chanderi-textile-concept.html" class="back-link">← Back</a>
+    <a href="chanderi-textile-concept.html" class="nav-brand">Suvarna <span>Chanderi</span> ✦</a>
+  </div>
+  <a href="cart.html" class="nav-cart-btn" id="cartBtn">
+    🛒 View Cart
+    <span class="cart-badge" id="cartBadge">0</span>
+  </a>
+</nav>
+
+<!-- ── BREADCRUMB ── -->
+<div class="breadcrumb" id="breadcrumb">
+  <a href="chanderi-textile-concept.html">Home</a>
+  <span class="breadcrumb-sep">›</span>
+  <a href="chanderi-textile-concept.html#shop">Collection</a>
+  <span class="breadcrumb-sep">›</span>
+  <span class="breadcrumb-current" id="breadcrumbCurrent">Loading…</span>
+</div>
+
+<!-- ── TOAST ── -->
+<div class="toast" id="toast">
+  <div class="toast-icon">✦</div>
+  <div class="toast-content">
+    <div class="toast-title" id="toastTitle">Added to Cart</div>
+    <div class="toast-sub" id="toastSub"></div>
+  </div>
+  <a href="cart.html" class="toast-link">View Cart →</a>
+</div>
+
+<!-- ── MAIN PRODUCT AREA ── -->
+<div id="productPageContent"></div>
+
+<script>
+// ════════════════════════════════════════════
+//  FULL PRODUCT DATA  (with extra detail fields)
+// ════════════════════════════════════════════
+const PRODUCTS = [
+  {
+    id: 'sc-001',
+    name: 'Ashrafi Buti Stole',
+    subtitle: 'Gold Coin Motif · Heritage Stole',
+    variant: 'Silk–Cotton · Zari Gold',
+    price: 3800,
+    color: 'linear-gradient(145deg,#c8972a,#8a5c1a)',
+    accentColor: '#c8972a',
+    tag: 'GI Tagged',
+    pattern: 'Ashrafi Buti',
+    category: 'stole',
+    weaver: 'Ramesh Kosale',
+    weaverVillage: 'Chanderi Old Town · 5th Generation',
+    weaverBio: 'Ramesh has been weaving since age twelve, taught by his father who learned from his grandfather. His Ashrafi Buti is considered one of the finest in the cluster.',
+    weaverEmoji: '🧵',
+    description: `The Ashrafi Buti stole is named after the gold coin — ashrafi — that once circulated in the courts of Bundela kings. Each small diamond-shaped motif represents a coin, woven in real zari thread into the silk-cotton ground.
+
+This stole drapes with the gentle weight of a whisper. The zari catches light differently at every angle — sometimes a warm amber, sometimes a cold gleam — because each thread is individually twisted silver wire coated in gold.
+
+Wear it over the shoulder on a winter evening, or fold it as a table centrepiece. It is made to be lived with.`,
+    specs: {
+      'Fabric Composition': 'Silk warp · Cotton weft',
+      'Dimensions': '2.5 metres × 45 cm',
+      'Zari': 'Pure silver coated with 0.5 micron gold',
+      'Weight': 'Approx. 180g',
+      'Dye Type': 'Azo-free natural dyes',
+      'Weaving Time': '4–5 working days',
+      'Loom Type': 'Traditional pit loom with Jacquard',
+      'GI Certificate': 'Included with shipment',
+      'Origin': 'Chanderi, Ashoknagar, Madhya Pradesh',
+    },
+    care: [
+      { icon: '🌊', label: 'Dry clean or gentle cold hand wash' },
+      { icon: '🌬️', label: 'Dry in filtered shade — never direct sun' },
+      { icon: '🔥', label: 'Low iron on reverse side only' },
+      { icon: '📦', label: 'Store rolled in cotton muslin' },
+    ],
+    eco: ['Zero-electricity pit loom', 'Natural azo-free dyes', 'GI-certified origin', 'Fair wage cluster'],
+    shipping: 'Free shipping on orders above ₹10,000 · Usually dispatched in 3–5 days',
+  },
+  {
+    id: 'sc-002',
+    name: 'Chameli Jaal Dupatta',
+    subtitle: 'Jasmine Lattice · All-Over Floral Net',
+    variant: 'Pure Silk · Monsoon Teal',
+    price: 5200,
+    color: 'linear-gradient(145deg,#2a6b6e,#1a3f41)',
+    accentColor: '#2a6b6e',
+    tag: 'Limited Edition',
+    pattern: 'Chameli Jaal',
+    category: 'dupatta',
+    weaver: 'Sunita Bai',
+    weaverVillage: 'Chanderi Weaver Colony · 3rd Generation',
+    weaverBio: 'Sunita is one of few women master weavers in Chanderi. She specialises in jaal — lattice patterns — which require the finest hand-tension control on the loom.',
+    weaverEmoji: '🌸',
+    description: `Chameli — the jasmine — is a flower of devotion and festivity across India. In Chanderi weaving, the Chameli Jaal pattern spreads a fine lattice of jasmine blossoms across the entire fabric ground, each flower no larger than a fingertip.
+
+This dupatta is woven in pure silk, giving it a luminous sheen that shifts from deep teal to a sea-green in different lights. The translucency is remarkable — hold it up to a window and it becomes a stained glass of threads.
+
+A limited edition run of only 24 pieces this season.`,
+    specs: {
+      'Fabric Composition': '100% Pure Silk (Mulberry)',
+      'Dimensions': '2.5 metres × 90 cm',
+      'Zari': 'Silver zari border with gold wash',
+      'Weight': 'Approx. 120g',
+      'Dye Type': 'Indigo and mineral-based natural dye',
+      'Weaving Time': '6–7 working days',
+      'Loom Type': 'Traditional pit loom · Extra-fine reed',
+      'GI Certificate': 'Included with shipment',
+      'Origin': 'Chanderi, Ashoknagar, Madhya Pradesh',
+    },
+    care: [
+      { icon: '🌊', label: 'Dry clean only for first wash' },
+      { icon: '🌬️', label: 'Dry in deep shade — silk fades in UV' },
+      { icon: '🔥', label: 'Do not iron directly — use a press cloth' },
+      { icon: '📦', label: 'Store flat or loosely rolled in muslin' },
+    ],
+    eco: ['Zero-electricity pit loom', 'Indigo natural dye', 'Limited edition — no overproduction', 'Fair wage weaver'],
+    shipping: 'Free shipping · Limited to 24 pieces · Dispatches in 5–7 days',
+  },
+  {
+    id: 'sc-003',
+    name: 'Dandidar Table Runner',
+    subtitle: 'Fine Vertical Stripe · Home Collection',
+    variant: 'Cotton Weft · Ivory & Gold',
+    price: 2400,
+    color: 'linear-gradient(145deg,#f2e9d8,#c8a870)',
+    accentColor: '#c8a870',
+    tag: 'Home Collection',
+    pattern: 'Dandidar',
+    category: 'home',
+    weaver: 'Mohan Weave Cluster',
+    weaverVillage: 'Chanderi Town Cluster · Multi-artisan',
+    weaverBio: 'The Mohan Cluster comprises eight weaver families who collaborate on larger home textile commissions. Each table runner passes through three pairs of hands before it ships.',
+    weaverEmoji: '🏡',
+    description: `Dandidar — from danda, the rod — describes the fine vertical stripe pattern that runs the length of this table runner in alternating ivory and gold zari. It is the most restrained and classical of all Chanderi motifs.
+
+On a dining table, it brings warmth without spectacle. The cotton-silk blend means it lies flat and handles occasional gentle laundering with grace. Unlike heavier tablecloths, it lets the wood grain or stone of your table show alongside it.
+
+A piece designed for every meal, not just the ceremonial one.`,
+    specs: {
+      'Fabric Composition': 'Cotton weft · Silk warp',
+      'Dimensions': '1.8 metres × 35 cm',
+      'Zari': 'Tested-gold zari stripes',
+      'Weight': 'Approx. 140g',
+      'Dye Type': 'Azo-free natural dyes — turmeric & pomegranate',
+      'Weaving Time': '2–3 working days',
+      'Loom Type': 'Traditional pit loom',
+      'GI Certificate': 'Included with shipment',
+      'Origin': 'Chanderi, Ashoknagar, Madhya Pradesh',
+    },
+    care: [
+      { icon: '🌊', label: 'Cold gentle hand wash, mild soap' },
+      { icon: '🌬️', label: 'Lay flat to dry — do not wring' },
+      { icon: '🔥', label: 'Medium iron on cotton setting' },
+      { icon: '📦', label: 'Can be folded — no muslin required' },
+    ],
+    eco: ['Zero-electricity pit loom', 'Turmeric & pomegranate natural dye', 'Cotton-heavy blend — lower ecological weight', 'Cluster cooperative model'],
+    shipping: 'Free shipping on orders above ₹10,000 · Dispatched in 2–4 days',
+  },
+  {
+    id: 'sc-004',
+    name: 'Shikargah Wall Hanging',
+    subtitle: 'Royal Hunting Scene · Artisan Masterwork',
+    variant: 'Silk Warp · Rust & Ink',
+    price: 8900,
+    color: 'linear-gradient(145deg,#a63d2f,#5a1a10)',
+    accentColor: '#a63d2f',
+    tag: 'Artisan Masterwork',
+    pattern: 'Shikargah',
+    category: 'home',
+    weaver: 'Devlal Vishwakarma',
+    weaverVillage: 'Old Chanderi Fort Quarter · 6th Generation',
+    weaverBio: 'Devlal is the last practitioner of Shikargah narrative weaving in Chanderi. His family has woven hunting-scene panels for Bundela royalty since the 17th century. Each piece is a nine-day commission.',
+    weaverEmoji: '👑',
+    description: `The Shikargah — hunting ground — pattern traces its origin to Mughal imperial textile tradition. Scenes of royal hunts: deer, horses, archers, flowering trees, and falcons, woven in miniature into the fabric ground.
+
+Devlal Vishwakarma's interpretation does not simply replicate the historical pattern — it interprets it. Rust on deep ink. Each figure a composition of individual thread lifts. This is not decorative textile. It is woven painting.
+
+Framed and hung, it becomes the permanent centrepiece of any room. Every year, the silk deepens in colour, growing more beautiful with age.`,
+    specs: {
+      'Fabric Composition': 'Pure Silk warp and weft',
+      'Dimensions': '90 cm × 120 cm',
+      'Zari': 'Real zari throughout — borders and motifs',
+      'Weight': 'Approx. 380g',
+      'Dye Type': 'Madder root (rust) · Indigo (ink)',
+      'Weaving Time': '9–12 working days (single artisan)',
+      'Loom Type': 'Traditional pit loom · 2,400-thread Jacquard',
+      'GI Certificate': 'Included with shipment',
+      'Certificate of Authenticity': 'Signed by Devlal Vishwakarma',
+      'Origin': 'Chanderi, Ashoknagar, Madhya Pradesh',
+    },
+    care: [
+      { icon: '🌊', label: 'Professional dry clean only' },
+      { icon: '☀️', label: 'Keep away from direct sunlight when displayed' },
+      { icon: '🔥', label: 'Do not iron — mount flat behind glass if framing' },
+      { icon: '📦', label: 'Store rolled around acid-free tube in muslin' },
+    ],
+    eco: ['Zero-electricity pit loom', 'Madder root + indigo natural dyes', 'Heirloom piece — lifetime ownership', 'Master artisan direct commission'],
+    shipping: 'Free shipping · Dispatched in 12–14 days (made to order) · Insured delivery',
+  },
+  {
+    id: 'sc-005',
+    name: 'Chameli Cushion Cover',
+    subtitle: 'Jasmine Motif · Home Cushion',
+    variant: 'Silk–Cotton · Honey Gold',
+    price: 1800,
+    color: 'linear-gradient(145deg,#e8c06a,#a07830)',
+    accentColor: '#c8972a',
+    tag: 'Home Collection',
+    pattern: 'Chameli Jaal',
+    category: 'home',
+    weaver: 'Sunita Bai',
+    weaverVillage: 'Chanderi Weaver Colony · 3rd Generation',
+    weaverBio: 'Sunita brings her signature fine-tension jaal weaving to the cushion cover format — a more accessible entry point into her craft.',
+    weaverEmoji: '🌸',
+    description: `A single Chameli Jaal cushion cover transforms any sofa or chair. The honey-gold ground is warm and inviting; the jasmine lattice catches light gently without demanding attention.
+
+The silk-cotton blend means the cover holds its shape through regular use while remaining soft and lustrous. A zip closure is hand-stitched by Sunita herself at the base.`,
+    specs: {
+      'Fabric Composition': 'Silk warp · Cotton weft',
+      'Dimensions': '45 cm × 45 cm · zip closure',
+      'Zari': 'Tested-gold zari outline',
+      'Weight': 'Approx. 95g',
+      'Dye Type': 'Natural dye — turmeric base',
+      'Weaving Time': '1–2 working days',
+      'Loom Type': 'Traditional pit loom',
+      'GI Certificate': 'Included with shipment',
+      'Origin': 'Chanderi, Ashoknagar, Madhya Pradesh',
+    },
+    care: [
+      { icon: '🌊', label: 'Dry clean or cold hand wash' },
+      { icon: '🌬️', label: 'Dry flat in shade' },
+      { icon: '🔥', label: 'Low iron on reverse' },
+      { icon: '📦', label: 'Store folded in cotton pouch' },
+    ],
+    eco: ['Zero-electricity pit loom', 'Turmeric natural dye', 'Silk-cotton blend — lower environmental cost', 'Fair wage weaver'],
+    shipping: 'Free shipping on orders above ₹10,000 · Dispatched in 3–5 days',
+  },
+  {
+    id: 'sc-006',
+    name: 'Ashrafi Buti Saree',
+    subtitle: 'Gold Coin Field · Heirloom Saree',
+    variant: 'Pure Silk · Teal & Zari',
+    price: 14500,
+    color: 'linear-gradient(145deg,#2a6b6e,#c8972a)',
+    accentColor: '#2a6b6e',
+    tag: 'Heirloom Piece',
+    pattern: 'Ashrafi Buti',
+    category: 'saree',
+    weaver: 'Ramesh Kosale',
+    weaverVillage: 'Chanderi Old Town · 5th Generation',
+    weaverBio: 'Ramesh\'s sarees are among the most sought-after in Chanderi. This particular six-metre piece represents over two weeks of continuous weaving.',
+    weaverEmoji: '🧵',
+    description: `A Chanderi saree woven in the Ashrafi Buti pattern is, in the Bundela tradition, a gift of genuine consequence. It was once presented to brides as a blessing — abundance woven in gold into fabric.
+
+This six-metre saree in teal and zari is a complete heirloom. The field is dense with Ashrafi coin motifs; the border carries a deeper Shikargah-inspired vine. The pallu — the decorative end — is the most intensively woven section, with clustered zari medallions.
+
+It is made to be worn, passed on, and worn again by someone who comes after you.`,
+    specs: {
+      'Fabric Composition': '100% Pure Silk (Mulberry)',
+      'Dimensions': '6.2 metres × 115 cm (including blouse piece)',
+      'Zari': 'Real zari throughout — tested silver-gold',
+      'Weight': 'Approx. 620g',
+      'Dye Type': 'Indigo (teal) · Natural mineral dyes',
+      'Weaving Time': '14–18 working days (single weaver)',
+      'Loom Type': 'Traditional pit loom · 2,400-thread Jacquard',
+      'GI Certificate': 'Included with shipment',
+      'Certificate of Authenticity': 'Signed by Ramesh Kosale',
+      'Origin': 'Chanderi, Ashoknagar, Madhya Pradesh',
+    },
+    care: [
+      { icon: '🌊', label: 'Professional dry clean only' },
+      { icon: '🌬️', label: 'Dry in filtered shade — never sun' },
+      { icon: '🔥', label: 'Steam press on reverse at low heat' },
+      { icon: '📦', label: 'Store in cotton muslin, rolled not folded, away from light' },
+    ],
+    eco: ['Zero-electricity pit loom', 'Indigo natural dye', 'Heirloom longevity — generational ownership', 'Real zari — fully recyclable precious metal'],
+    shipping: 'Free shipping · Made to order · Dispatches in 18–22 days · Insured delivery',
+  },
+  {
+    id: 'sc-007',
+    name: 'Dandidar Stole',
+    subtitle: 'Fine Stripe · Night Collection',
+    variant: 'Silk–Cotton · Night Ink',
+    price: 3200,
+    color: 'linear-gradient(145deg,#2a2418,#1c1812)',
+    accentColor: '#c8972a',
+    tag: 'GI Tagged',
+    pattern: 'Dandidar',
+    category: 'stole',
+    weaver: 'Mohan Weave Cluster',
+    weaverVillage: 'Chanderi Town Cluster · Multi-artisan',
+    weaverBio: 'The cluster\'s night-ink collection uses a deep indigo-over-iron mordant technique to achieve this distinctive near-black ground shot with gold.',
+    weaverEmoji: '🌙',
+    description: `The Night Ink Dandidar is the most versatile piece in the Suvarna collection. On a dark ground — an indigo so deep it reads as black — fine gold zari stripes run vertical, like light through blinds.
+
+It works equally as a formal evening stole, a desk scarf on a cold morning, or draped over a chair as a considered decorative accent. The silk-cotton blend gives it enough body to hold its drape without stiffness.`,
+    specs: {
+      'Fabric Composition': 'Silk warp · Cotton weft',
+      'Dimensions': '2.5 metres × 45 cm',
+      'Zari': 'Pure silver-gold zari stripes',
+      'Weight': 'Approx. 170g',
+      'Dye Type': 'Indigo with iron mordant (night-black)',
+      'Weaving Time': '3–4 working days',
+      'Loom Type': 'Traditional pit loom',
+      'GI Certificate': 'Included with shipment',
+      'Origin': 'Chanderi, Ashoknagar, Madhya Pradesh',
+    },
+    care: [
+      { icon: '🌊', label: 'Cold hand wash with mild soap' },
+      { icon: '🌬️', label: 'Dry in deep shade — indigo may fade slightly in UV' },
+      { icon: '🔥', label: 'Low iron on reverse' },
+      { icon: '📦', label: 'Roll in cotton muslin for storage' },
+    ],
+    eco: ['Zero-electricity pit loom', 'Indigo + iron mordant — natural process', 'GI-certified origin', 'Cluster cooperative model'],
+    shipping: 'Free shipping on orders above ₹10,000 · Dispatched in 3–5 days',
+  },
+  {
+    id: 'sc-008',
+    name: 'Shikargah Dupatta',
+    subtitle: 'Royal Hunting Scene · Ivory & Rust',
+    variant: 'Pure Silk · Ivory & Rust',
+    price: 6800,
+    color: 'linear-gradient(145deg,#f2e9d8,#a63d2f)',
+    accentColor: '#a63d2f',
+    tag: 'Royal Series',
+    pattern: 'Shikargah',
+    category: 'dupatta',
+    weaver: 'Devlal Vishwakarma',
+    weaverVillage: 'Old Chanderi Fort Quarter · 6th Generation',
+    weaverBio: 'Devlal\'s Royal Series dupattas are smaller-scale interpretations of his celebrated wall hangings — the same narrative density, the same mastery, in wearable form.',
+    weaverEmoji: '👑',
+    description: `From the same Mughal tradition that inspired the great Shikargah wall hangings, this dupatta brings the royal hunt pattern into wearable silk. Ivory ground, rust-dyed scene figures, gold zari borders.
+
+The hunt unfolds across the length of the dupatta in narrative sequence — beginning with mounted archers, continuing through a forest of flowering trees, ending with the falcon and the deer. It is a story you wear.`,
+    specs: {
+      'Fabric Composition': '100% Pure Silk (Mulberry)',
+      'Dimensions': '2.5 metres × 90 cm',
+      'Zari': 'Real zari borders and motif outlines',
+      'Weight': 'Approx. 155g',
+      'Dye Type': 'Madder root (rust) on natural silk (ivory)',
+      'Weaving Time': '7–9 working days',
+      'Loom Type': 'Traditional pit loom · Jacquard attachment',
+      'GI Certificate': 'Included with shipment',
+      'Origin': 'Chanderi, Ashoknagar, Madhya Pradesh',
+    },
+    care: [
+      { icon: '🌊', label: 'Dry clean for best preservation' },
+      { icon: '🌬️', label: 'Dry in filtered shade' },
+      { icon: '🔥', label: 'Press cloth and low steam iron on reverse' },
+      { icon: '📦', label: 'Roll loosely in cotton muslin — never fold across motifs' },
+    ],
+    eco: ['Zero-electricity pit loom', 'Madder root natural dye', 'Pure silk — biodegradable luxury', 'Master artisan direct commission'],
+    shipping: 'Free shipping · Dispatched in 9–12 days · Insured',
+  },
+];
+
+// ════════════════════════════════════════════
+//  CART HELPERS
+// ════════════════════════════════════════════
+function getCart() {
+  try { return JSON.parse(localStorage.getItem('suvarna_cart') || '[]'); }
+  catch { return []; }
+}
+function saveCart(c) { localStorage.setItem('suvarna_cart', JSON.stringify(c)); }
+
+function updateCartBadge() {
+  const total = getCart().reduce((s, i) => s + i.qty, 0);
+  const badge = document.getElementById('cartBadge');
+  if (!badge) return;
+  badge.textContent = total;
+  total > 0 ? badge.classList.add('show') : badge.classList.remove('show');
+}
+
+let qty = 1;
+
+function addToCart(productId) {
+  const product = PRODUCTS.find(p => p.id === productId);
+  if (!product) return;
+  const cart = getCart();
+  const existing = cart.find(i => i.id === productId);
+  if (existing) { existing.qty += qty; }
+  else { cart.push({ ...product, qty }); }
+  saveCart(cart);
+  updateCartBadge();
+  showToast(product.name, product.variant);
+  // flash button
+  const btn = document.getElementById('addBtn');
+  if (btn) {
+    btn.classList.add('added');
+    btn.textContent = `✓ ${qty > 1 ? qty + ' × ' : ''}Added to Cart`;
+    setTimeout(() => {
+      btn.classList.remove('added');
+      btn.textContent = '+ Add to Cart';
+    }, 2000);
+  }
+}
+
+let toastTimer;
+function showToast(name, variant) {
+  const t = document.getElementById('toast');
+  document.getElementById('toastTitle').textContent = name;
+  document.getElementById('toastSub').textContent = variant + ' · Added to cart';
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ════════════════════════════════════════════
+//  RENDER
+// ════════════════════════════════════════════
+function renderPage(product) {
+  document.title = product.name + ' — Suvarna Chanderi';
+  document.getElementById('breadcrumbCurrent').textContent = product.name;
+
+  const specsHTML = Object.entries(product.specs).map(([k,v]) =>
+    `<tr><td>${k}</td><td>${v}</td></tr>`
+  ).join('');
+
+  const careHTML = product.care.map(c =>
+    `<div class="care-item"><span class="care-icon">${c.icon}</span>${c.label}</div>`
+  ).join('');
+
+  const ecoHTML = product.eco.map(e =>
+    `<div class="eco-tag"><span class="eco-dot"></span>${e}</div>`
+  ).join('');
+
+  // Related products (same category or pattern, exclude self)
+  const related = PRODUCTS.filter(p => p.id !== product.id && (p.category === product.category || p.pattern === product.pattern)).slice(0, 4);
+  const relatedHTML = related.map(r => `
+    <a href="product.html?id=${r.id}" class="related-card">
+      <div class="related-thumb" style="background:${r.color};"></div>
+      <div class="related-info">
+        <div class="related-name">${r.name}</div>
+        <div class="related-price">₹${r.price.toLocaleString('en-IN')}</div>
+      </div>
+    </a>
+  `).join('');
+
+  // Zari pattern for image
+  const zariUnits = Array.from({length: 14}, (_, i) =>
+    `<div class="zari-unit${i % 2 === 0 ? ' f' : ''}"></div>`
+  ).join('');
+
+  document.getElementById('productPageContent').innerHTML = `
+    <div class="product-page">
+
+      <!-- LEFT: VISUAL -->
+      <div class="product-visual">
+        <div class="product-image-main" style="background:${product.color};">
+          <div class="product-image-border-top">
+            <div class="zari-pattern">${zariUnits}</div>
+          </div>
+          <div class="product-center-motif">
+            <svg viewBox="0 0 200 200" width="160" height="160" fill="none" xmlns="http://www.w3.org/2000/svg" class="shimmer">
+              <circle cx="100" cy="100" r="65" stroke="rgba(255,240,180,0.35)" stroke-width="1"/>
+              <circle cx="100" cy="100" r="45" stroke="rgba(255,240,180,0.25)" stroke-width="1"/>
+              <polygon points="100,50 114,86 152,86 122,108 132,144 100,124 68,144 78,108 48,86 86,86"
+                fill="rgba(255,220,120,0.12)" stroke="rgba(255,220,120,0.55)" stroke-width="1"/>
+              <circle cx="100" cy="100" r="9" fill="rgba(255,220,120,0.5)"/>
+              <line x1="100" y1="35" x2="100" y2="165" stroke="rgba(255,240,180,0.12)" stroke-width="0.5"/>
+              <line x1="35" y1="100" x2="165" y2="100" stroke="rgba(255,240,180,0.12)" stroke-width="0.5"/>
+              <line x1="55" y1="55" x2="145" y2="145" stroke="rgba(255,240,180,0.12)" stroke-width="0.5"/>
+              <line x1="145" y1="55" x2="55" y2="145" stroke="rgba(255,240,180,0.12)" stroke-width="0.5"/>
+            </svg>
+          </div>
+          <div class="product-image-border-bottom">
+            <div class="zari-pattern">${zariUnits}</div>
+          </div>
+        </div>
+
+        <div class="product-tags-row">
+          <span class="ptag gold">✦ ${product.tag}</span>
+          <span class="ptag teal">${product.pattern}</span>
+          <span class="ptag">${product.category}</span>
+          <span class="ptag">GI Certified</span>
+        </div>
+      </div>
+
+      <!-- RIGHT: INFO -->
+      <div class="product-info-panel">
+        <div class="product-eyebrow">${product.subtitle}</div>
+        <h1 class="product-title">${product.name.replace(' ', ' <em>').replace(/(\s\w+)$/, '</em>$1') || product.name}</h1>
+        <div class="product-variant-label">${product.variant}</div>
+
+        <div class="product-price-block">
+          <div class="product-price-main">₹${product.price.toLocaleString('en-IN')}</div>
+          <div class="product-price-note">handwoven · GI certified</div>
+        </div>
+        <div class="product-shipping-note">🌿 ${product.shipping}</div>
+
+        <hr class="info-divider">
+
+        <!-- Qty + Add -->
+        <div class="purchase-row">
+          <div class="qty-stepper">
+            <button class="qty-btn" id="qtyMinus" onclick="changeQty(-1)">−</button>
+            <div class="qty-num" id="qtyDisplay">1</div>
+            <button class="qty-btn" id="qtyPlus" onclick="changeQty(1)">+</button>
+          </div>
+          <button class="add-btn" id="addBtn" onclick="addToCart('${product.id}')">
+            + Add to Cart
+          </button>
+          <button class="wishlist-btn" title="Save to wishlist" onclick="wishlist(this)">♡</button>
+        </div>
+
+        <hr class="info-divider">
+
+        <!-- Accordion -->
+        <div class="info-accordion">
+
+          <div class="accordion-item open">
+            <button class="accordion-header" onclick="toggleAccordion(this)">
+              About This Piece
+              <span class="accordion-arrow">▾</span>
+            </button>
+            <div class="accordion-body">
+              <div class="accordion-content">
+                ${product.description.split('\n\n').map(p => `<p>${p.trim()}</p>`).join('')}
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-header" onclick="toggleAccordion(this)">
+              Specifications
+              <span class="accordion-arrow">▾</span>
+            </button>
+            <div class="accordion-body">
+              <div class="accordion-content">
+                <table class="spec-table">${specsHTML}</table>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-header" onclick="toggleAccordion(this)">
+              The Weaver
+              <span class="accordion-arrow">▾</span>
+            </button>
+            <div class="accordion-body">
+              <div class="accordion-content">
+                <div class="weaver-card">
+                  <div class="weaver-avatar">${product.weaverEmoji}</div>
+                  <div>
+                    <div class="weaver-name">${product.weaver}</div>
+                    <div class="weaver-meta">${product.weaverVillage}</div>
+                    <div class="weaver-bio">"${product.weaverBio}"</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-header" onclick="toggleAccordion(this)">
+              Care Instructions
+              <span class="accordion-arrow">▾</span>
+            </button>
+            <div class="accordion-body">
+              <div class="accordion-content">
+                <div class="care-icons">${careHTML}</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-header" onclick="toggleAccordion(this)">
+              Sustainability
+              <span class="accordion-arrow">▾</span>
+            </button>
+            <div class="accordion-body">
+              <div class="accordion-content">
+                <div class="eco-tags">${ecoHTML}</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- RELATED -->
+    ${related.length > 0 ? `
+    <div class="related-section">
+      <div class="related-eyebrow">You May Also Love</div>
+      <h2 class="related-title">More from the <em>Collection</em></h2>
+      <div class="related-grid">${relatedHTML}</div>
+    </div>` : ''}
+  `;
+}
+
+function renderNotFound() {
+  document.getElementById('productPageContent').innerHTML = `
+    <div class="not-found">
+      <h2>Piece not found</h2>
+      <p>This product may have been removed or the link is incorrect.</p>
+      <a href="chanderi-textile-concept.html#shop">Browse the Collection</a>
+    </div>
+  `;
+}
+
+function toggleAccordion(btn) {
+  const item = btn.closest('.accordion-item');
+  const isOpen = item.classList.contains('open');
+  // Close all
+  document.querySelectorAll('.accordion-item.open').forEach(el => el.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+function changeQty(delta) {
+  qty = Math.max(1, Math.min(10, qty + delta));
+  document.getElementById('qtyDisplay').textContent = qty;
+}
+
+function wishlist(btn) {
+  btn.textContent = btn.textContent === '♡' ? '♥' : '♡';
+  btn.style.color = btn.textContent === '♥' ? 'var(--rust)' : '';
+}
+
+// ════════════════════════════════════════════
+//  INIT
+// ════════════════════════════════════════════
+document.addEventListener('DOMContentLoaded', () => {
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('id');
+  const product = PRODUCTS.find(p => p.id === id);
+  if (product) renderPage(product);
+  else renderNotFound();
+  updateCartBadge();
+});
+</script>
+</body>
+</html>

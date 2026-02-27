@@ -1,0 +1,2176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Suvarna Chanderi — A Living Textile</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ivory:   #f9f4ec;
+    --cream:   #f2e9d8;
+    --gold:    #c8972a;
+    --gold2:   #e8c06a;
+    --rust:    #a63d2f;
+    --teal:    #2a6b6e;
+    --ink:     #1c1812;
+    --muted:   #8a7e6e;
+    --border:  #ddd0b8;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    background: var(--ivory);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* ── DECORATIVE MOTIF SVG (reusable) ── */
+  .motif {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    background: var(--ink);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 5rem 4rem 5rem 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Woven texture on dark panel */
+  .hero-left::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(200,151,42,0.04) 3px, rgba(200,151,42,0.04) 4px),
+      repeating-linear-gradient(90deg, transparent, transparent 3px, rgba(200,151,42,0.04) 3px, rgba(200,151,42,0.04) 4px);
+    pointer-events: none;
+  }
+
+  .hero-ornament {
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 280px; height: 280px;
+    opacity: 0.06;
+  }
+
+  .hero-tag {
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    font-size: 0.65rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold2);
+    margin-bottom: 2.5rem;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.5rem, 5vw, 5.5rem);
+    font-weight: 300;
+    line-height: 1.05;
+    color: var(--ivory);
+    margin-bottom: 0.5rem;
+    animation: fadeUp 0.8s 0.1s ease both;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold2);
+  }
+
+  .hero-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--muted);
+    margin-bottom: 2.5rem;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+
+  .hero-divider {
+    width: 48px;
+    height: 1px;
+    background: var(--gold);
+    margin-bottom: 2rem;
+    animation: expandW 1s 0.4s ease both;
+  }
+
+  .hero-intro {
+    font-weight: 300;
+    font-size: 0.92rem;
+    line-height: 1.85;
+    color: #a89e8a;
+    max-width: 360px;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+
+  .hero-right {
+    background: var(--cream);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem;
+    overflow: hidden;
+  }
+
+  /* Large decorative geometric pattern for right panel */
+  .hero-right::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: radial-gradient(circle at 50% 50%, rgba(200,151,42,0.12) 0%, transparent 70%);
+  }
+
+  .textile-visual {
+    position: relative;
+    width: 360px;
+    height: 480px;
+    animation: fadeUp 1s 0.5s ease both;
+  }
+
+  .textile-card {
+    width: 100%;
+    height: 100%;
+    border-radius: 2px;
+    background: linear-gradient(145deg, #d4a84b 0%, #8a5c1a 40%, #c8822a 70%, #e8c06a 100%);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 40px 80px rgba(28,24,18,0.25), 0 8px 24px rgba(28,24,18,0.15);
+  }
+
+  /* Simulated woven silk sheen */
+  .textile-card::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 8px),
+      repeating-linear-gradient(-45deg, rgba(0,0,0,0.04) 0px, rgba(0,0,0,0.04) 1px, transparent 1px, transparent 8px);
+  }
+
+  .textile-card::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.18) 0%, transparent 50%, rgba(0,0,0,0.15) 100%);
+  }
+
+  .textile-border-top,
+  .textile-border-bottom {
+    position: absolute;
+    left: 0; right: 0;
+    height: 56px;
+    z-index: 2;
+    background: var(--ink);
+    opacity: 0.85;
+  }
+  .textile-border-top { top: 0; }
+  .textile-border-bottom { bottom: 0; }
+
+  .border-pattern {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 1rem;
+  }
+
+  .pattern-repeat {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .pattern-unit {
+    width: 18px;
+    height: 18px;
+    border: 1px solid var(--gold);
+    transform: rotate(45deg);
+    opacity: 0.7;
+    flex-shrink: 0;
+  }
+
+  .pattern-unit.filled {
+    background: var(--gold);
+    opacity: 0.5;
+  }
+
+  .textile-center-motif {
+    position: absolute;
+    inset: 56px;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .label-tag {
+    position: absolute;
+    bottom: -20px;
+    right: -20px;
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    padding: 0.8rem 1.2rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.8rem;
+    font-style: italic;
+    color: var(--muted);
+    box-shadow: 0 4px 16px rgba(28,24,18,0.1);
+    z-index: 10;
+    line-height: 1.5;
+  }
+
+  .label-tag strong {
+    display: block;
+    font-size: 1rem;
+    color: var(--gold);
+    font-style: normal;
+    font-weight: 600;
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    padding: 5rem 5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-eyebrow {
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 300;
+    line-height: 1.15;
+    margin-bottom: 2rem;
+    color: var(--ink);
+  }
+
+  .section-title em { font-style: italic; color: var(--rust); }
+
+  .section-body {
+    font-weight: 300;
+    font-size: 0.95rem;
+    line-height: 1.95;
+    color: #4a4035;
+    max-width: 620px;
+  }
+
+  .section-body p + p { margin-top: 1.2em; }
+
+  /* ── DIVIDER ── */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 0 5rem;
+  }
+
+  /* ── TWO COL LAYOUT ── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  /* ── COLOR PALETTE ── */
+  .palette {
+    display: flex;
+    gap: 0;
+    margin-top: 2rem;
+    border-radius: 4px;
+    overflow: hidden;
+    height: 64px;
+    box-shadow: 0 4px 16px rgba(28,24,18,0.1);
+  }
+
+  .swatch {
+    flex: 1;
+    position: relative;
+    cursor: default;
+    transition: flex 0.3s ease;
+  }
+
+  .swatch:hover { flex: 2; }
+
+  .swatch-label {
+    position: absolute;
+    bottom: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Jost', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.2s;
+    font-weight: 400;
+  }
+
+  .swatch:hover .swatch-label { opacity: 1; }
+
+  /* ── PATTERN GRID ── */
+  .pattern-showcase {
+    background: var(--ink);
+    padding: 4rem 5rem;
+  }
+
+  .patterns-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+
+  .pattern-card {
+    aspect-ratio: 1;
+    background: var(--surface2);
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1.5rem;
+    border: 1px solid rgba(200,151,42,0.15);
+    transition: border-color 0.3s, transform 0.3s;
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pattern-card:hover {
+    border-color: rgba(200,151,42,0.5);
+    transform: translateY(-3px);
+  }
+
+  .pattern-card::before {
+    content: '';
+    position: absolute; inset: 0;
+    opacity: 0;
+    transition: opacity 0.3s;
+    background: radial-gradient(circle at center, rgba(200,151,42,0.06), transparent 70%);
+  }
+
+  .pattern-card:hover::before { opacity: 1; }
+
+  .pattern-icon {
+    font-size: 1.8rem;
+    line-height: 1;
+  }
+
+  .pattern-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.9rem;
+    font-style: italic;
+    color: var(--gold2);
+    text-align: center;
+  }
+
+  .pattern-desc {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.62rem;
+    font-weight: 300;
+    color: #6a6050;
+    text-align: center;
+    letter-spacing: 0.05em;
+  }
+
+  /* ── ARTISAN STEPS ── */
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 2.5rem;
+  }
+
+  .step {
+    padding: 2rem;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    position: relative;
+    transition: box-shadow 0.3s, transform 0.3s;
+    background: var(--ivory);
+  }
+
+  .step:hover {
+    box-shadow: 0 8px 32px rgba(28,24,18,0.08);
+    transform: translateY(-3px);
+  }
+
+  .step-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem;
+    font-weight: 300;
+    color: var(--border);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .step-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 0.75rem;
+  }
+
+  .step-body {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 300;
+    line-height: 1.75;
+    color: var(--muted);
+  }
+
+  /* ── SUSTAINABILITY PILLS ── */
+  .pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.75rem;
+  }
+
+  .pill {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 300;
+    color: var(--ink);
+    background: var(--ivory);
+    letter-spacing: 0.02em;
+    transition: background 0.2s, border-color 0.2s;
+  }
+
+  .pill:hover { background: var(--cream); border-color: var(--gold); }
+
+  .pill-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--teal);
+    flex-shrink: 0;
+  }
+
+  /* ── MODERN USE CARDS ── */
+  .use-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+
+  .use-card {
+    padding: 2rem 1.75rem;
+    background: var(--cream);
+    border-radius: 2px;
+    border-top: 3px solid var(--gold);
+    transition: transform 0.25s;
+  }
+
+  .use-card:hover { transform: translateY(-4px); }
+  .use-card:nth-child(2) { border-top-color: var(--teal); }
+  .use-card:nth-child(3) { border-top-color: var(--rust); }
+
+  .use-emoji { font-size: 1.5rem; margin-bottom: 0.75rem; }
+
+  .use-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+    color: var(--ink);
+  }
+
+  .use-body {
+    font-size: 0.8rem;
+    font-weight: 300;
+    line-height: 1.75;
+    color: var(--muted);
+  }
+
+  /* ── QUOTE BLOCK ── */
+  .quote-block {
+    background: var(--ink);
+    padding: 5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .quote-block::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      radial-gradient(circle at 20% 50%, rgba(200,151,42,0.07) 0%, transparent 50%),
+      radial-gradient(circle at 80% 50%, rgba(42,107,110,0.07) 0%, transparent 50%);
+  }
+
+  .quote-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--ivory);
+    max-width: 700px;
+    margin: 0 auto 1.5rem;
+    position: relative;
+  }
+
+  .quote-marks {
+    font-size: 5rem;
+    line-height: 0;
+    color: var(--gold);
+    opacity: 0.3;
+    vertical-align: -0.5em;
+  }
+
+  .quote-attr {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 300;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    position: relative;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 2.5rem 5rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .footer-brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+  }
+
+  .footer-note {
+    font-size: 0.65rem;
+    font-weight: 300;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes expandW {
+    from { width: 0; }
+    to   { width: 48px; }
+  }
+
+  @keyframes shimmer {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+  }
+
+  .shimmer { animation: shimmer 4s ease-in-out infinite; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-left { padding: 3rem 2rem; }
+    .hero-right { min-height: 400px; }
+    section { padding: 3.5rem 2rem; }
+    .two-col, .steps, .use-grid, .patterns-grid { grid-template-columns: 1fr; }
+    .divider { margin: 0 2rem; }
+    .pattern-showcase, .quote-block, footer { padding: 3rem 2rem; }
+  }
+
+  /* ══════════════════ NAVBAR ══════════════════ */
+  .navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: rgba(28,24,18,0.97);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(200,151,42,0.18);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 3rem;
+    height: 58px;
+    gap: 1.5rem;
+  }
+
+  .nav-brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--gold2);
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .nav-brand span { color: var(--muted); font-weight: 300; }
+
+  /* Search */
+  .nav-search {
+    flex: 1;
+    max-width: 420px;
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-search input {
+    width: 100%;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(200,151,42,0.2);
+    border-radius: 999px;
+    padding: 0.45rem 1rem 0.45rem 2.5rem;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 300;
+    color: var(--text, #dde0f0);
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+    letter-spacing: 0.03em;
+  }
+
+  .nav-search input::placeholder { color: #6a6050; }
+
+  .nav-search input:focus {
+    border-color: rgba(200,151,42,0.55);
+    background: rgba(255,255,255,0.08);
+  }
+
+  .nav-search-icon {
+    position: absolute;
+    left: 0.85rem;
+    pointer-events: none;
+    color: #6a6050;
+    font-size: 0.8rem;
+    line-height: 1;
+  }
+
+  /* Search dropdown */
+  .search-results {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0; right: 0;
+    background: #1c1812;
+    border: 1px solid rgba(200,151,42,0.25);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+    display: none;
+    z-index: 100;
+  }
+
+  .search-results.visible { display: block; }
+
+  .search-result-item {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    transition: background 0.15s;
+    border-bottom: 1px solid rgba(200,151,42,0.08);
+  }
+
+  .search-result-item:last-child { border-bottom: none; }
+  .search-result-item:hover { background: rgba(200,151,42,0.06); }
+
+  .sri-swatch {
+    width: 32px; height: 32px;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+
+  .sri-info { flex: 1; min-width: 0; }
+
+  .sri-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.85rem;
+    color: #e8c06a;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .sri-price {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 300;
+    color: #6a6050;
+  }
+
+  .sri-add {
+    font-size: 0.65rem;
+    font-family: 'Jost', sans-serif;
+    font-weight: 400;
+    padding: 0.25rem 0.65rem;
+    background: rgba(200,151,42,0.12);
+    border: 1px solid rgba(200,151,42,0.3);
+    border-radius: 4px;
+    color: #c8972a;
+    cursor: pointer;
+    transition: background 0.15s;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+
+  .sri-add:hover { background: rgba(200,151,42,0.22); }
+
+  .search-no-results {
+    padding: 1rem;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 300;
+    color: #6a6050;
+    text-align: center;
+    letter-spacing: 0.05em;
+  }
+
+  /* Cart btn */
+  .nav-cart-btn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.45rem 1.1rem;
+    background: rgba(200,151,42,0.1);
+    border: 1px solid rgba(200,151,42,0.35);
+    border-radius: 999px;
+    cursor: pointer;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: #c8972a;
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    transition: background 0.2s, border-color 0.2s;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  .nav-cart-btn:hover { background: rgba(200,151,42,0.2); border-color: rgba(200,151,42,0.6); }
+
+  .cart-badge {
+    position: absolute;
+    top: -6px; right: -6px;
+    min-width: 18px; height: 18px;
+    background: var(--rust);
+    color: #fff;
+    border-radius: 999px;
+    font-size: 0.6rem;
+    font-weight: 500;
+    display: flex; align-items: center; justify-content: center;
+    padding: 0 4px;
+    line-height: 1;
+    display: none;
+    animation: popIn 0.25s cubic-bezier(.175,.885,.32,1.275) both;
+  }
+
+  .cart-badge.show { display: flex; }
+
+  @keyframes popIn {
+    from { transform: scale(0); opacity: 0; }
+    to   { transform: scale(1); opacity: 1; }
+  }
+
+  /* ══════════════════ TOAST ══════════════════ */
+  .toast {
+    position: fixed;
+    bottom: 2rem; right: 2rem;
+    background: #1c1812;
+    border: 1px solid rgba(200,151,42,0.4);
+    border-left: 3px solid var(--gold);
+    border-radius: 8px;
+    padding: 0.85rem 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    z-index: 9999;
+    transform: translateY(120%);
+    transition: transform 0.35s cubic-bezier(.175,.885,.32,1.275);
+    min-width: 260px;
+    max-width: 340px;
+  }
+
+  .toast.show { transform: translateY(0); }
+
+  .toast-icon { font-size: 1.1rem; flex-shrink: 0; }
+
+  .toast-content { flex: 1; }
+
+  .toast-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.9rem;
+    color: #e8c06a;
+    margin-bottom: 0.15rem;
+  }
+
+  .toast-sub {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 300;
+    color: #6a6050;
+    letter-spacing: 0.04em;
+  }
+
+  .toast-view {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 400;
+    color: #c8972a;
+    text-decoration: none;
+    border: 1px solid rgba(200,151,42,0.3);
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    transition: background 0.15s;
+    white-space: nowrap;
+    letter-spacing: 0.04em;
+  }
+
+  .toast-view:hover { background: rgba(200,151,42,0.1); }
+
+  /* ══════════════════ SHOP / PRODUCTS SECTION ══════════════════ */
+  .shop-section {
+    background: var(--cream);
+    padding: 5rem;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .shop-section .section-eyebrow { margin-bottom: 0.5rem; }
+
+  .shop-section .section-title { margin-bottom: 2.5rem; }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.75rem;
+    margin-top: 2rem;
+  }
+
+  .product-card {
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    transition: transform 0.25s, box-shadow 0.25s;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(28,24,18,0.1);
+  }
+
+  .product-thumb {
+    height: 180px;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .product-tag-gi {
+    position: absolute;
+    top: 0.65rem; left: 0.65rem;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.55rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: rgba(28,24,18,0.75);
+    color: var(--gold2);
+    padding: 0.2rem 0.5rem;
+    border-radius: 2px;
+    backdrop-filter: blur(4px);
+  }
+
+  .product-info {
+    padding: 1.1rem 1.25rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .product-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 0.2rem;
+  }
+
+  .product-variant {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 300;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+  }
+
+  .product-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    margin-top: auto;
+  }
+
+  .product-price span {
+    font-size: 0.7rem;
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    color: var(--muted);
+    margin-left: 0.25rem;
+    vertical-align: middle;
+  }
+
+  .product-thumb-link { display: block; text-decoration: none; }
+
+  .product-thumb-hover {
+    position: absolute;
+    inset: 0;
+    background: rgba(28,24,18,0.55);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.7rem; font-weight: 400;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--gold2);
+    opacity: 0;
+    transition: opacity 0.25s;
+    backdrop-filter: blur(2px);
+  }
+
+  .product-card:hover .product-thumb-hover { opacity: 1; }
+
+  .product-name-link { text-decoration: none; color: inherit; }
+  .product-name-link:hover .product-name { color: var(--gold); }
+  .product-name-link .product-name { transition: color 0.2s; }
+
+  .add-to-cart-btn {
+    width: 100%;
+    padding: 0.65rem 1rem;
+    background: var(--ink);
+    color: var(--gold2);
+    border: none;
+    border-radius: 2px;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .add-to-cart-btn:hover { background: var(--gold); color: var(--ink); }
+
+  .add-to-cart-btn.added {
+    background: var(--teal);
+    color: #fff;
+  }
+
+  @media (max-width: 900px) {
+    .navbar { padding: 0 1.25rem; }
+    .nav-brand span { display: none; }
+    .shop-section { padding: 3rem 1.5rem; }
+    .products-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    .toast { bottom: 1rem; right: 1rem; left: 1rem; min-width: 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════ NAVBAR ══════════════════════════════════ -->
+<nav class="navbar">
+  <div class="nav-brand">Suvarna <span>Chanderi</span> ✦</div>
+  <div class="nav-search">
+    <span class="nav-search-icon">🔍</span>
+    <input type="text" id="searchInput" placeholder="Search products, patterns…" autocomplete="off" />
+    <div class="search-results" id="searchResults"></div>
+  </div>
+  <a href="cart.html" class="nav-cart-btn" id="cartBtn">
+    🛒 View Cart
+    <span class="cart-badge" id="cartBadge">0</span>
+  </a>
+</nav>
+
+<!-- ══════════════════════════════════ TOAST ══════════════════════════════════ -->
+<div class="toast" id="toast">
+  <div class="toast-icon">✦</div>
+  <div class="toast-content">
+    <div class="toast-title" id="toastTitle">Added to Cart</div>
+    <div class="toast-sub" id="toastSub">Item added successfully</div>
+  </div>
+  <a href="cart.html" class="toast-view">View Cart →</a>
+</div>
+
+<!-- ══════════════════════════════════ HERO ══════════════════════════════════ -->
+<header class="hero">
+  <div class="hero-left">
+    <!-- Decorative mandala SVG -->
+    <svg class="hero-ornament" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="100" cy="100" r="90" stroke="#c8972a" stroke-width="0.5"/>
+      <circle cx="100" cy="100" r="70" stroke="#c8972a" stroke-width="0.5"/>
+      <circle cx="100" cy="100" r="50" stroke="#c8972a" stroke-width="0.5"/>
+      <circle cx="100" cy="100" r="30" stroke="#c8972a" stroke-width="0.5"/>
+      <line x1="10" y1="100" x2="190" y2="100" stroke="#c8972a" stroke-width="0.5"/>
+      <line x1="100" y1="10" x2="100" y2="190" stroke="#c8972a" stroke-width="0.5"/>
+      <line x1="36" y1="36" x2="164" y2="164" stroke="#c8972a" stroke-width="0.5"/>
+      <line x1="164" y1="36" x2="36" y2="164" stroke="#c8972a" stroke-width="0.5"/>
+      <polygon points="100,20 115,85 180,100 115,115 100,180 85,115 20,100 85,85" fill="none" stroke="#c8972a" stroke-width="0.5"/>
+    </svg>
+
+    <div class="hero-tag">A Living Heritage · Madhya Pradesh, India</div>
+    <h1 class="hero-title">Suvarna<br><em>Chanderi</em></h1>
+    <div class="hero-subtitle">Gold of the Betwa Valley</div>
+    <div class="hero-divider"></div>
+    <p class="hero-intro">
+      Woven where the Betwa river bends and the monsoon turns the plateau silver — 
+      a textile born of three centuries of silence, patience, and gold.
+      Every thread carries the memory of a weaver's hands.
+    </p>
+  </div>
+
+  <div class="hero-right">
+    <div class="textile-visual">
+      <div class="textile-card">
+        <div class="textile-border-top">
+          <div class="border-pattern">
+            <div class="pattern-repeat">
+              <div class="pattern-unit"></div><div class="pattern-unit filled"></div>
+              <div class="pattern-unit"></div><div class="pattern-unit filled"></div>
+              <div class="pattern-unit"></div><div class="pattern-unit filled"></div>
+              <div class="pattern-unit"></div><div class="pattern-unit filled"></div>
+              <div class="pattern-unit"></div><div class="pattern-unit filled"></div>
+              <div class="pattern-unit"></div><div class="pattern-unit filled"></div>
+              <div class="pattern-unit"></div><div class="pattern-unit filled"></div>
+              <div class="pattern-unit"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="textile-center-motif">
+          <svg viewBox="0 0 200 200" width="180" height="180" fill="none" xmlns="http://www.w3.org/2000/svg" class="shimmer">
+            <circle cx="100" cy="100" r="60" stroke="rgba(255,240,180,0.4)" stroke-width="1"/>
+            <circle cx="100" cy="100" r="40" stroke="rgba(255,240,180,0.3)" stroke-width="1"/>
+            <polygon points="100,50 114,86 152,86 122,108 132,144 100,124 68,144 78,108 48,86 86,86" fill="rgba(255,220,120,0.15)" stroke="rgba(255,220,120,0.6)" stroke-width="1"/>
+            <circle cx="100" cy="100" r="8" fill="rgba(255,220,120,0.5)"/>
+            <line x1="100" y1="40" x2="100" y2="160" stroke="rgba(255,240,180,0.15)" stroke-width="0.5"/>
+            <line x1="40" y1="100" x2="160" y2="100" stroke="rgba(255,240,180,0.15)" stroke-width="0.5"/>
+            <line x1="58" y1="58" x2="142" y2="142" stroke="rgba(255,240,180,0.15)" stroke-width="0.5"/>
+            <line x1="142" y1="58" x2="58" y2="142" stroke="rgba(255,240,180,0.15)" stroke-width="0.5"/>
+          </svg>
+        </div>
+
+        <div class="textile-border-bottom">
+          <div class="border-pattern">
+            <div class="pattern-repeat">
+              <div class="pattern-unit filled"></div><div class="pattern-unit"></div>
+              <div class="pattern-unit filled"></div><div class="pattern-unit"></div>
+              <div class="pattern-unit filled"></div><div class="pattern-unit"></div>
+              <div class="pattern-unit filled"></div><div class="pattern-unit"></div>
+              <div class="pattern-unit filled"></div><div class="pattern-unit"></div>
+              <div class="pattern-unit filled"></div><div class="pattern-unit"></div>
+              <div class="pattern-unit filled"></div><div class="pattern-unit"></div>
+              <div class="pattern-unit filled"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="label-tag">
+        <strong>Suvarna Chanderi</strong>
+        Hand-woven · GI Tagged<br>
+        Chanderi, M.P. · Est. 11th Century
+      </div>
+    </div>
+  </div>
+</header>
+
+
+<!-- ══════════════════════════ TEXTILE & REGION ══════════════════════════════ -->
+<section>
+  <div class="two-col">
+    <div>
+      <div class="section-eyebrow">The Textile</div>
+      <h2 class="section-title">Chanderi Silk —<br><em>Light Made Fabric</em></h2>
+      <div class="section-body">
+        <p>
+          Chanderi fabric originates from the ancient town of Chanderi in the Ashoknagar district 
+          of Madhya Pradesh — a place where Bundela kings once commissioned cloths so fine that 
+          legend held they could be folded and passed through a finger ring.
+        </p>
+        <p>
+          <em>Suvarna Chanderi</em> is a contemporary product concept that reimagines this heirloom 
+          textile as a curated home and lifestyle collection: stoles, table runners, wall hangings, 
+          and cushion covers — each piece a singular work of woven art bearing a GI-tagged 
+          certificate of authentic origin.
+        </p>
+        <p>
+          The fabric is a luminous blend of pure silk warp and cotton weft, giving it 
+          its signature translucency — gossamer-light, yet warm to the touch, draping 
+          like whispered silk against the skin.
+        </p>
+      </div>
+    </div>
+    <div>
+      <div class="section-eyebrow">The Palette</div>
+      <h2 class="section-title">Colors of the<br><em>Betwa Valley</em></h2>
+      <div class="section-body">
+        <p>
+          Traditional Chanderi draws its palette from the landscape that surrounds it — the 
+          saffron of temple flowers, the teal of monsoon ponds, the ivory of kansa vessels, 
+          and the deep rust of Bundelkhand laterite soil.
+        </p>
+        <p>
+          In the <em>Suvarna</em> collection, these are rendered in natural, azo-free dyes 
+          and real zari — a flat gold thread spun from fine silver coated with gold — creating 
+          a palette that deepens gracefully with age.
+        </p>
+      </div>
+
+      <div class="palette">
+        <div class="swatch" style="background:#c8972a;">
+          <span class="swatch-label" style="color:#fff;">Zari Gold</span>
+        </div>
+        <div class="swatch" style="background:#e8c06a;">
+          <span class="swatch-label" style="color:#5a3a00;">Honey Silk</span>
+        </div>
+        <div class="swatch" style="background:#a63d2f;">
+          <span class="swatch-label" style="color:#fff;">Bundelkhand Rust</span>
+        </div>
+        <div class="swatch" style="background:#2a6b6e;">
+          <span class="swatch-label" style="color:#fff;">Monsoon Teal</span>
+        </div>
+        <div class="swatch" style="background:#f2e9d8;">
+          <span class="swatch-label" style="color:#4a3a20;">Kansa Ivory</span>
+        </div>
+        <div class="swatch" style="background:#1c1812;">
+          <span class="swatch-label" style="color:#c8972a;">Night Ink</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ══════════════════════════ PATTERNS ══════════════════════════════════════ -->
+<div class="pattern-showcase">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="section-eyebrow" style="color:var(--gold2);">Design Vocabulary</div>
+    <h2 class="section-title" style="color:var(--ivory);">Patterns Woven<br><em>Into Time</em></h2>
+
+    <div class="patterns-grid">
+      <div class="pattern-card">
+        <div class="pattern-icon">✦</div>
+        <div class="pattern-name">Ashrafi Buti</div>
+        <div class="pattern-desc">Gold coin motif · repeating field pattern · symbol of Bundela prosperity</div>
+      </div>
+      <div class="pattern-card">
+        <div class="pattern-icon">❋</div>
+        <div class="pattern-name">Chameli Jaal</div>
+        <div class="pattern-desc">Jasmine lattice · all-over floral net · feminine, sacred, joyful</div>
+      </div>
+      <div class="pattern-card">
+        <div class="pattern-icon">◈</div>
+        <div class="pattern-name">Shikargah</div>
+        <div class="pattern-desc">Hunting scene border · Mughal-era influence · royal narrative in thread</div>
+      </div>
+      <div class="pattern-card">
+        <div class="pattern-icon">⬡</div>
+        <div class="pattern-name">Dandidar</div>
+        <div class="pattern-desc">Fine vertical stripes · woven with zari · understated elegance of restraint</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════ CULTURAL HISTORY ══════════════════════════════ -->
+<section>
+  <div class="section-eyebrow">Cultural Significance</div>
+  <h2 class="section-title">Three Centuries of<br><em>Woven Memory</em></h2>
+  <div class="two-col" style="align-items:start;gap:3rem;">
+    <div class="section-body">
+      <p>
+        Chanderi weaving finds its earliest mention in the 11th century, when it clothed the 
+        royalty of the Malwa Sultanate. The great Mughal emperor Akbar later patronised 
+        Chanderi looms, incorporating its silks into the imperial treasury of fine cloth.
+      </p>
+      <p>
+        In Bundela tradition, a Chanderi saree gifted to a bride was not merely a garment — 
+        it was a blessing woven in gold: an invocation of abundance, light, and the luminous 
+        possibility of a new life beginning.
+      </p>
+    </div>
+    <div class="section-body">
+      <p>
+        Today, Chanderi holds a Geographical Indication (GI) tag from the Government of India — 
+        one of only a handful of textiles to receive this recognition — affirming its 
+        irreplaceable status as a living cultural inheritance, not merely a commodity.
+      </p>
+      <p>
+        The <em>Suvarna</em> collection channels this historical depth into 
+        contemporary forms, ensuring every purchase directly sustains a weaver family 
+        whose craft lineage may stretch back ten generations.
+      </p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+
+<!-- ══════════════════════════ ARTISAN CRAFT ══════════════════════════════════ -->
+<section>
+  <div class="section-eyebrow">Artisan Craftsmanship</div>
+  <h2 class="section-title">From Loom to<br><em>Living Room</em></h2>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-number">01</div>
+      <div class="step-title">Thread Preparation</div>
+      <div class="step-body">
+        Raw silk yarn is sourced from Karnataka and degummed by hand in Chanderi. Cotton weft 
+        threads are hand-spun on a charkha. Pure zari — silver wire coated with gold — is 
+        sourced from Surat's hereditary zari makers. Each thread is starched, stretched, and 
+        wound onto bobbins by hand before the loom is even touched.
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-number">02</div>
+      <div class="step-title">Loom Setting & Jacquard Card Punching</div>
+      <div class="step-body">
+        Chanderi weavers use pit looms — looms sunk into the earth — that allow foot treadles 
+        to control up to 2,400 warp threads simultaneously. For patterned designs, a Jacquard 
+        attachment controlled by hand-punched cards lifts individual threads to form the motif. 
+        Programming one complex design can take a master weaver two full days.
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-number">03</div>
+      <div class="step-title">Hand Weaving & Finishing</div>
+      <div class="step-body">
+        A single stole of 2.5 metres may take three to five days of continuous weaving. 
+        Zari borders are woven simultaneously, not added later, requiring perfect rhythm 
+        between both hands. Finishing includes hand-washing in cold water, drying in filtered 
+        shade, and a final quality check by the master weaver who signs the piece with a 
+        handwoven weaver's mark in the selvedge.
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+
+<!-- ══════════════════════════ SUSTAINABILITY ════════════════════════════════ -->
+<section>
+  <div class="two-col">
+    <div>
+      <div class="section-eyebrow">Sustainability</div>
+      <h2 class="section-title">A Textile That<br><em>Leaves No Shadow</em></h2>
+      <div class="section-body">
+        <p>
+          Chanderi weaving is among the most low-impact luxury textile processes on earth. 
+          The pit loom requires no electricity. Natural dyes — indigo, pomegranate rind, 
+          turmeric, madder root — biodegrade fully. Waste thread is composted or repurposed 
+          into buti embroidery by women artisans in the same cluster.
+        </p>
+        <p>
+          The <em>Suvarna</em> collection is packaged in hand-stitched unbleached cotton 
+          pouches and recycled mulberry paper — zero plastic, traceable from loom to doorstep.
+        </p>
+      </div>
+
+      <div class="pills">
+        <div class="pill"><span class="pill-dot"></span> Zero-electricity pit loom</div>
+        <div class="pill"><span class="pill-dot"></span> Azo-free natural dyes</div>
+        <div class="pill"><span class="pill-dot"></span> GI-certified origin</div>
+        <div class="pill"><span class="pill-dot"></span> Plastic-free packaging</div>
+        <div class="pill"><span class="pill-dot"></span> Fair wage artisan clusters</div>
+        <div class="pill"><span class="pill-dot"></span> Biodegradable waste</div>
+        <div class="pill"><span class="pill-dot"></span> Traceable supply chain</div>
+        <div class="pill"><span class="pill-dot"></span> Heirloom longevity</div>
+      </div>
+    </div>
+
+    <div style="display:flex;align-items:center;justify-content:center;">
+      <!-- Eco graphic -->
+      <svg viewBox="0 0 260 260" width="260" height="260" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="130" cy="130" r="120" stroke="var(--border)" stroke-width="1"/>
+        <circle cx="130" cy="130" r="90"  stroke="var(--border)" stroke-width="0.5" stroke-dasharray="4 4"/>
+        <circle cx="130" cy="130" r="60"  stroke="var(--teal)" stroke-width="0.75" opacity="0.4"/>
+        <!-- Leaf -->
+        <path d="M130 80 C160 100 165 145 130 160 C95 145 100 100 130 80Z" fill="rgba(42,107,110,0.15)" stroke="var(--teal)" stroke-width="1"/>
+        <line x1="130" y1="80" x2="130" y2="160" stroke="var(--teal)" stroke-width="0.75" opacity="0.6"/>
+        <!-- Small dots around circle -->
+        <circle cx="130" cy="10" r="3" fill="var(--gold)" opacity="0.5"/>
+        <circle cx="240" cy="130" r="3" fill="var(--gold)" opacity="0.5"/>
+        <circle cx="130" cy="250" r="3" fill="var(--gold)" opacity="0.5"/>
+        <circle cx="20" cy="130" r="3" fill="var(--gold)" opacity="0.5"/>
+        <!-- Text arc indicator -->
+        <text font-family="'Jost',sans-serif" font-size="9" fill="var(--muted)" letter-spacing="3">
+          <textPath href="#circ" startOffset="10%">ZERO ELECTRICITY · NATURAL DYE · GI CERTIFIED · FAIR WAGE ·</textPath>
+        </text>
+        <defs>
+          <path id="circ" d="M130,18 A112,112 0 1,1 129.99,18"/>
+        </defs>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+
+<!-- ══════════════════════════ MODERN USAGE ══════════════════════════════════ -->
+<section>
+  <div class="section-eyebrow">Modern Lifestyle Relevance</div>
+  <h2 class="section-title">Ancient Hands,<br><em>Contemporary Life</em></h2>
+  <div class="section-body" style="margin-bottom:0;">
+    The <em>Suvarna Chanderi</em> collection is designed for the modern slow-living aesthetic — 
+    for homes and wardrobes that prize story, material honesty, and quiet beauty over mass production.
+  </div>
+
+  <div class="use-grid">
+    <div class="use-card">
+      <div class="use-emoji">🏠</div>
+      <div class="use-title">Conscious Home</div>
+      <div class="use-body">
+        Table runners, cushion covers, and hand-stitched wall panels that bring 
+        warmth and narrative to minimal interiors. Each piece anchors a room with 
+        genuine cultural depth — not decorative pastiche.
+      </div>
+    </div>
+    <div class="use-card">
+      <div class="use-emoji">🧣</div>
+      <div class="use-title">Slow Fashion</div>
+      <div class="use-body">
+        Silk-cotton stoles and dupattas designed to companion a wardrobe for decades. 
+        The translucency of Chanderi means a single piece transitions from boardroom 
+        to evening gathering with effortless grace.
+      </div>
+    </div>
+    <div class="use-card">
+      <div class="use-emoji">🎁</div>
+      <div class="use-title">Meaningful Gifting</div>
+      <div class="use-body">
+        Each piece is delivered with a handwritten card sharing the weaver's name, 
+        village, and years of practice — transforming a gift into an introduction 
+        between two people separated by a thousand miles but connected by a single thread.
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════ SHOP / PRODUCTS ═══════════════════════════════ -->
+<div class="shop-section" id="shop">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="section-eyebrow">The Collection</div>
+    <h2 class="section-title">Shop <em>Suvarna</em> Pieces</h2>
+    <div class="products-grid" id="productsGrid">
+      <!-- Rendered by JS -->
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════ QUOTE ═════════════════════════════════════════ -->
+<div class="quote-block">
+  <p class="quote-text">
+    <span class="quote-marks">"</span>
+    The loom does not know impatience. It knows only the rhythm of hands 
+    that have learned to make silence into something you can hold.
+    <span class="quote-marks">"</span>
+  </p>
+  <div class="quote-attr">— Ramesh Kosale, Master Weaver · Chanderi · Fifth Generation</div>
+</div>
+
+
+<!-- ══════════════════════════ FOOTER ════════════════════════════════════════ -->
+<footer>
+  <div class="footer-brand">Suvarna Chanderi ✦</div>
+  <div class="footer-note">Handwoven · GI Tagged · Chanderi, Madhya Pradesh · Est. 11th Century</div>
+</footer>
+
+<script>
+// ══════════════════════════════════════════
+//  PRODUCT CATALOGUE
+// ══════════════════════════════════════════
+const PRODUCTS = [
+  {
+    id: 'sc-001',
+    name: 'Ashrafi Buti Stole',
+    variant: 'Silk–Cotton · Zari Gold',
+    price: 3800,
+    color: 'linear-gradient(145deg,#c8972a,#8a5c1a)',
+    tag: 'GI Tagged',
+    pattern: 'Ashrafi Buti',
+    category: 'stole',
+    weaver: 'Ramesh Kosale'
+  },
+  {
+    id: 'sc-002',
+    name: 'Chameli Jaal Dupatta',
+    variant: 'Pure Silk · Monsoon Teal',
+    price: 5200,
+    color: 'linear-gradient(145deg,#2a6b6e,#1a3f41)',
+    tag: 'Limited Edition',
+    pattern: 'Chameli Jaal',
+    category: 'dupatta',
+    weaver: 'Sunita Bai'
+  },
+  {
+    id: 'sc-003',
+    name: 'Dandidar Table Runner',
+    variant: 'Cotton Weft · Ivory & Gold',
+    price: 2400,
+    color: 'linear-gradient(145deg,#f2e9d8,#c8a870)',
+    tag: 'Home Collection',
+    pattern: 'Dandidar',
+    category: 'home',
+    weaver: 'Mohan Weave Cluster'
+  },
+  {
+    id: 'sc-004',
+    name: 'Shikargah Wall Hanging',
+    variant: 'Silk Warp · Rust & Ink',
+    price: 8900,
+    color: 'linear-gradient(145deg,#a63d2f,#5a1a10)',
+    tag: 'Artisan Masterwork',
+    pattern: 'Shikargah',
+    category: 'home',
+    weaver: 'Devlal Vishwakarma'
+  },
+  {
+    id: 'sc-005',
+    name: 'Chameli Cushion Cover',
+    variant: 'Silk–Cotton · Honey Gold',
+    price: 1800,
+    color: 'linear-gradient(145deg,#e8c06a,#a07830)',
+    tag: 'Home Collection',
+    pattern: 'Chameli Jaal',
+    category: 'home',
+    weaver: 'Sunita Bai'
+  },
+  {
+    id: 'sc-006',
+    name: 'Ashrafi Buti Saree',
+    variant: 'Pure Silk · Teal & Zari',
+    price: 14500,
+    color: 'linear-gradient(145deg,#2a6b6e,#c8972a)',
+    tag: 'Heirloom Piece',
+    pattern: 'Ashrafi Buti',
+    category: 'saree',
+    weaver: 'Ramesh Kosale'
+  },
+  {
+    id: 'sc-007',
+    name: 'Dandidar Stole',
+    variant: 'Silk–Cotton · Night Ink',
+    price: 3200,
+    color: 'linear-gradient(145deg,#2a2418,#1c1812)',
+    tag: 'GI Tagged',
+    pattern: 'Dandidar',
+    category: 'stole',
+    weaver: 'Mohan Weave Cluster'
+  },
+  {
+    id: 'sc-008',
+    name: 'Shikargah Dupatta',
+    variant: 'Pure Silk · Ivory & Rust',
+    price: 6800,
+    color: 'linear-gradient(145deg,#f2e9d8,#a63d2f)',
+    tag: 'Royal Series',
+    pattern: 'Shikargah',
+    category: 'dupatta',
+    weaver: 'Devlal Vishwakarma'
+  }
+];
+
+// ══════════════════════════════════════════
+//  CART ENGINE (localStorage)
+// ══════════════════════════════════════════
+function getCart() {
+  try { return JSON.parse(localStorage.getItem('suvarna_cart') || '[]'); }
+  catch { return []; }
+}
+
+function saveCart(cart) {
+  localStorage.setItem('suvarna_cart', JSON.stringify(cart));
+}
+
+function addToCart(productId) {
+  const product = PRODUCTS.find(p => p.id === productId);
+  if (!product) return;
+
+  const cart = getCart();
+  const existing = cart.find(i => i.id === productId);
+  if (existing) {
+    existing.qty += 1;
+  } else {
+    cart.push({ ...product, qty: 1 });
+  }
+  saveCart(cart);
+  updateCartBadge();
+  showToast(product.name, product.variant);
+  flashAddButton(productId);
+}
+
+function updateCartBadge() {
+  const cart = getCart();
+  const total = cart.reduce((sum, i) => sum + i.qty, 0);
+  const badge = document.getElementById('cartBadge');
+  if (!badge) return;
+  badge.textContent = total;
+  if (total > 0) {
+    badge.classList.add('show');
+  } else {
+    badge.classList.remove('show');
+  }
+}
+
+function flashAddButton(productId) {
+  const btn = document.querySelector(`[data-product-id="${productId}"]`);
+  if (!btn) return;
+  btn.classList.add('added');
+  btn.textContent = '✓ Added';
+  setTimeout(() => {
+    btn.classList.remove('added');
+    btn.innerHTML = '+ Add to Cart';
+  }, 1800);
+}
+
+// ══════════════════════════════════════════
+//  TOAST
+// ══════════════════════════════════════════
+let toastTimer;
+function showToast(name, variant) {
+  const toast = document.getElementById('toast');
+  const title = document.getElementById('toastTitle');
+  const sub = document.getElementById('toastSub');
+  title.textContent = name;
+  sub.textContent = variant + ' · Added to cart';
+  toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove('show'), 3200);
+}
+
+// ══════════════════════════════════════════
+//  RENDER PRODUCTS
+// ══════════════════════════════════════════
+function renderProducts(list) {
+  const grid = document.getElementById('productsGrid');
+  if (!grid) return;
+  if (list.length === 0) {
+    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:3rem;font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--muted);font-style:italic;">No pieces found. Try a different search.</div>`;
+    return;
+  }
+  grid.innerHTML = list.map(p => `
+    <div class="product-card">
+      <a href="product.html?id=${p.id}" class="product-thumb-link">
+        <div class="product-thumb" style="background:${p.color};">
+          <span class="product-tag-gi">${p.tag}</span>
+          <div class="product-thumb-hover">View Details →</div>
+        </div>
+      </a>
+      <div class="product-info">
+        <a href="product.html?id=${p.id}" class="product-name-link">
+          <div class="product-name">${p.name}</div>
+        </a>
+        <div class="product-variant">${p.variant}</div>
+        <div class="product-price">₹${p.price.toLocaleString('en-IN')}<span>handwoven</span></div>
+        <button class="add-to-cart-btn" data-product-id="${p.id}" onclick="addToCart('${p.id}')">
+          + Add to Cart
+        </button>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ══════════════════════════════════════════
+//  SEARCH
+// ══════════════════════════════════════════
+const searchInput = document.getElementById('searchInput');
+const searchResults = document.getElementById('searchResults');
+
+function searchProducts(query) {
+  if (!query || query.trim().length < 2) return [];
+  const q = query.toLowerCase();
+  return PRODUCTS.filter(p =>
+    p.name.toLowerCase().includes(q) ||
+    p.variant.toLowerCase().includes(q) ||
+    p.pattern.toLowerCase().includes(q) ||
+    p.category.toLowerCase().includes(q) ||
+    p.weaver.toLowerCase().includes(q) ||
+    p.tag.toLowerCase().includes(q)
+  );
+}
+
+if (searchInput) {
+  searchInput.addEventListener('input', function() {
+    const q = this.value.trim();
+
+    // Filter the main product grid
+    if (q.length >= 1) {
+      const filtered = searchProducts(q);
+      renderProducts(filtered);
+      // Scroll to shop section
+      const shopEl = document.getElementById('shop');
+      if (shopEl) shopEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+      renderProducts(PRODUCTS);
+    }
+
+    // Dropdown suggestions
+    if (q.length >= 2) {
+      const results = searchProducts(q);
+      if (results.length === 0) {
+        searchResults.innerHTML = `<div class="search-no-results">No results for "${q}"</div>`;
+      } else {
+        searchResults.innerHTML = results.slice(0, 5).map(p => `
+          <div class="search-result-item">
+            <div class="sri-swatch" style="background:${p.color};"></div>
+            <div class="sri-info">
+              <div class="sri-name">${p.name}</div>
+              <div class="sri-price">₹${p.price.toLocaleString('en-IN')} · ${p.pattern}</div>
+            </div>
+            <button class="sri-add" onclick="addToCart('${p.id}');closeSearch();">Add</button>
+          </div>
+        `).join('');
+      }
+      searchResults.classList.add('visible');
+    } else {
+      closeSearch();
+    }
+  });
+
+  searchInput.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') { closeSearch(); this.blur(); }
+  });
+}
+
+function closeSearch() {
+  if (searchResults) searchResults.classList.remove('visible');
+}
+
+document.addEventListener('click', function(e) {
+  const wrap = document.querySelector('.nav-search');
+  if (wrap && !wrap.contains(e.target)) closeSearch();
+});
+
+// ══════════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════════
+document.addEventListener('DOMContentLoaded', function() {
+  renderProducts(PRODUCTS);
+  updateCartBadge();
+});
+</script>
+
+<!-- ══════════════════════════════════ AI CHATBOX ══════════════════════════════════ -->
+
+<!-- Floating bubble -->
+<div class="ai-bubble" id="aiBubble" onclick="toggleChat()" title="Chat with our AI">
+  <div class="ai-bubble-icon" id="bubbleIcon">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+      <path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z" stroke="#e8c06a" stroke-width="1.5" stroke-linejoin="round"/>
+      <circle cx="8.5" cy="12" r="1.2" fill="#e8c06a"/>
+      <circle cx="12" cy="12" r="1.2" fill="#e8c06a"/>
+      <circle cx="15.5" cy="12" r="1.2" fill="#e8c06a"/>
+    </svg>
+  </div>
+  <div class="ai-bubble-close" id="bubbleClose">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+      <line x1="5" y1="5" x2="19" y2="19" stroke="#e8c06a" stroke-width="2" stroke-linecap="round"/>
+      <line x1="19" y1="5" x2="5" y2="19" stroke="#e8c06a" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+  </div>
+  <span class="ai-bubble-ping"></span>
+</div>
+
+<!-- Chat Window -->
+<div class="ai-chat-window" id="aiChatWindow">
+  <div class="ai-chat-header">
+    <div class="ai-chat-header-left">
+      <div class="ai-avatar">✦</div>
+      <div>
+        <div class="ai-chat-title">Suvarna AI</div>
+        <div class="ai-chat-status"><span class="ai-status-dot"></span> Online · Weaving guide</div>
+      </div>
+    </div>
+    <button class="ai-chat-minimize" onclick="toggleChat()">−</button>
+  </div>
+
+  <div class="ai-chat-messages" id="aiMessages">
+    <div class="ai-msg ai-msg-bot">
+      <div class="ai-msg-bubble">
+        Namaste 🙏 I'm your Suvarna Chanderi guide. Ask me anything — about our textiles, patterns, weavers, or help choosing the perfect piece.
+      </div>
+      <div class="ai-msg-time">Just now</div>
+    </div>
+    <div class="ai-quick-replies" id="quickReplies">
+      <button class="ai-qr" onclick="quickReply('Tell me about Chanderi silk')">About Chanderi Silk</button>
+      <button class="ai-qr" onclick="quickReply('Which product is best for gifting?')">Best for gifting?</button>
+      <button class="ai-qr" onclick="quickReply('What patterns do you have?')">What patterns?</button>
+      <button class="ai-qr" onclick="quickReply('How do I care for my piece?')">Care guide</button>
+    </div>
+  </div>
+
+  <div class="ai-chat-input-row">
+    <input
+      type="text"
+      class="ai-chat-input"
+      id="aiInput"
+      placeholder="Ask about textiles, patterns…"
+      onkeydown="if(event.key==='Enter') sendMessage()"
+    />
+    <button class="ai-send-btn" onclick="sendMessage()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+        <path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z" stroke="#1c1812" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<style>
+/* ── FLOAT ANIMATION — only 1–1.5cm ── */
+@keyframes gentleFloat {
+  0%   { transform: translateY(0px); }
+  50%  { transform: translateY(-11px); }
+  100% { transform: translateY(0px); }
+}
+
+/* ── BUBBLE ── */
+.ai-bubble {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 56px; height: 56px;
+  background: var(--ink);
+  border: 1.5px solid rgba(200,151,42,0.5);
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  z-index: 9000;
+  box-shadow: 0 8px 32px rgba(28,24,18,0.35), 0 2px 8px rgba(200,151,42,0.2);
+  animation: gentleFloat 3.2s ease-in-out infinite;
+  transition: box-shadow 0.25s, border-color 0.25s;
+}
+
+.ai-bubble:hover {
+  box-shadow: 0 12px 40px rgba(28,24,18,0.45), 0 4px 16px rgba(200,151,42,0.35);
+  border-color: rgba(200,151,42,0.8);
+}
+
+.ai-bubble-icon  { display: flex; align-items: center; justify-content: center; }
+.ai-bubble-close { display: none; align-items: center; justify-content: center; }
+
+.ai-bubble.open .ai-bubble-icon  { display: none; }
+.ai-bubble.open .ai-bubble-close { display: flex; }
+.ai-bubble.open { animation: none; }
+
+/* Ping dot */
+.ai-bubble-ping {
+  position: absolute;
+  top: 4px; right: 4px;
+  width: 10px; height: 10px;
+  background: var(--gold);
+  border-radius: 50%;
+  border: 2px solid var(--ink);
+}
+
+.ai-bubble-ping::before {
+  content: '';
+  position: absolute; inset: -3px;
+  border-radius: 50%;
+  background: rgba(200,151,42,0.35);
+  animation: pingPulse 2s ease-out infinite;
+}
+
+@keyframes pingPulse {
+  0%   { transform: scale(1); opacity: 1; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+/* ── CHAT WINDOW ── */
+.ai-chat-window {
+  position: fixed;
+  bottom: 6.5rem;
+  right: 2rem;
+  width: 340px;
+  max-height: 480px;
+  background: #13141c;
+  border: 1px solid rgba(200,151,42,0.22);
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+  z-index: 8999;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.45), 0 4px 16px rgba(200,151,42,0.1);
+  transform: scale(0.85) translateY(20px);
+  transform-origin: bottom right;
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.3s cubic-bezier(.175,.885,.32,1.275), opacity 0.25s ease;
+}
+
+.ai-chat-window.open {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Header */
+.ai-chat-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1rem 1.1rem 0.9rem;
+  background: rgba(200,151,42,0.06);
+  border-bottom: 1px solid rgba(200,151,42,0.12);
+  flex-shrink: 0;
+}
+
+.ai-chat-header-left { display: flex; align-items: center; gap: 0.75rem; }
+
+.ai-avatar {
+  width: 36px; height: 36px;
+  background: linear-gradient(135deg, #c8972a, #8a5c1a);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; color: var(--ivory);
+  flex-shrink: 0;
+}
+
+.ai-chat-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.95rem; font-weight: 600;
+  color: var(--gold2); letter-spacing: 0.02em;
+}
+
+.ai-chat-status {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.6rem; font-weight: 300;
+  color: #6a6050; letter-spacing: 0.04em;
+  display: flex; align-items: center; gap: 0.35rem;
+  margin-top: 0.05rem;
+}
+
+.ai-status-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #4ae0a8;
+  flex-shrink: 0;
+  box-shadow: 0 0 4px rgba(74,224,168,0.6);
+}
+
+.ai-chat-minimize {
+  background: none; border: none; cursor: pointer;
+  color: #6a6050; font-size: 1.2rem; line-height: 1;
+  width: 28px; height: 28px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  transition: background 0.15s, color 0.15s;
+}
+.ai-chat-minimize:hover { background: rgba(255,255,255,0.06); color: #e8c06a; }
+
+/* Messages */
+.ai-chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem 1rem 0.5rem;
+  display: flex; flex-direction: column; gap: 0.75rem;
+  scroll-behavior: smooth;
+}
+
+.ai-chat-messages::-webkit-scrollbar { width: 3px; }
+.ai-chat-messages::-webkit-scrollbar-track { background: transparent; }
+.ai-chat-messages::-webkit-scrollbar-thumb { background: rgba(200,151,42,0.25); border-radius: 2px; }
+
+.ai-msg { display: flex; flex-direction: column; gap: 0.2rem; }
+.ai-msg-bot { align-items: flex-start; }
+.ai-msg-user { align-items: flex-end; }
+
+.ai-msg-bubble {
+  max-width: 85%;
+  padding: 0.65rem 0.9rem;
+  border-radius: 12px;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.78rem; font-weight: 300;
+  line-height: 1.65; letter-spacing: 0.02em;
+}
+
+.ai-msg-bot .ai-msg-bubble {
+  background: rgba(200,151,42,0.1);
+  border: 1px solid rgba(200,151,42,0.15);
+  color: #d4c4a8;
+  border-radius: 4px 12px 12px 12px;
+}
+
+.ai-msg-user .ai-msg-bubble {
+  background: linear-gradient(135deg, #c8972a, #8a5c1a);
+  color: #fff8ec;
+  border-radius: 12px 4px 12px 12px;
+}
+
+.ai-msg-time {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.55rem; font-weight: 300;
+  color: #3a3530; letter-spacing: 0.05em;
+  padding: 0 0.2rem;
+}
+
+/* Typing indicator */
+.ai-typing {
+  display: flex; align-items: center; gap: 0.75rem;
+}
+.ai-typing-dots {
+  display: flex; gap: 4px; align-items: center;
+  background: rgba(200,151,42,0.08);
+  border: 1px solid rgba(200,151,42,0.12);
+  padding: 0.6rem 0.9rem;
+  border-radius: 4px 12px 12px 12px;
+}
+.ai-typing-dots span {
+  width: 5px; height: 5px;
+  background: var(--gold);
+  border-radius: 50%; opacity: 0.5;
+  animation: typingBounce 1.2s ease-in-out infinite;
+}
+.ai-typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+.ai-typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typingBounce {
+  0%, 80%, 100% { transform: translateY(0); opacity: 0.4; }
+  40%           { transform: translateY(-5px); opacity: 1; }
+}
+
+/* Quick replies */
+.ai-quick-replies {
+  display: flex; flex-wrap: wrap; gap: 0.4rem;
+  margin-top: 0.25rem;
+}
+
+.ai-qr {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.65rem; font-weight: 300;
+  padding: 0.35rem 0.75rem;
+  background: transparent;
+  border: 1px solid rgba(200,151,42,0.3);
+  border-radius: 999px; cursor: pointer;
+  color: #c8972a; letter-spacing: 0.03em;
+  transition: background 0.15s, border-color 0.15s;
+  line-height: 1.3;
+}
+.ai-qr:hover { background: rgba(200,151,42,0.12); border-color: rgba(200,151,42,0.6); }
+
+/* Input row */
+.ai-chat-input-row {
+  display: flex; align-items: center; gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-top: 1px solid rgba(200,151,42,0.1);
+  background: rgba(0,0,0,0.15);
+  flex-shrink: 0;
+}
+
+.ai-chat-input {
+  flex: 1;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(200,151,42,0.2);
+  border-radius: 8px;
+  padding: 0.55rem 0.85rem;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.75rem; font-weight: 300;
+  color: #d4c4a8; outline: none;
+  transition: border-color 0.2s;
+  letter-spacing: 0.02em;
+}
+.ai-chat-input::placeholder { color: #3a3530; }
+.ai-chat-input:focus { border-color: rgba(200,151,42,0.5); }
+
+.ai-send-btn {
+  width: 34px; height: 34px;
+  background: var(--gold);
+  border: none; border-radius: 8px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.2s, transform 0.15s;
+}
+.ai-send-btn:hover { background: var(--gold2); transform: scale(1.05); }
+.ai-send-btn:active { transform: scale(0.95); }
+
+@media (max-width: 480px) {
+  .ai-chat-window { width: calc(100vw - 2rem); right: 1rem; }
+  .ai-bubble { bottom: 1.5rem; right: 1.5rem; }
+}
+</style>
+
+<script>
+// ══════════════════════════════════════════
+//  AI CHATBOX ENGINE
+// ══════════════════════════════════════════
+
+const AI_KB = {
+  greet: ["Namaste! 🙏 How can I help you explore Suvarna Chanderi today?", "Welcome back! What would you like to know about our collection?"],
+  chanderi: "Chanderi silk originates from the ancient town of Chanderi in Madhya Pradesh. It's a luminous blend of pure silk warp and cotton weft — gossamer-light yet warm. The fabric holds a GI (Geographical Indication) tag, one of the rarest recognitions for Indian textiles. Chanderi weaving dates back to the 11th century and was once patronised by the Mughal emperor Akbar himself.",
+  patterns: "We weave four signature patterns: ✦ **Ashrafi Buti** — gold coin motif, symbol of Bundela prosperity. ❋ **Chameli Jaal** — jasmine lattice, feminine and sacred. ◈ **Shikargah** — Mughal-era royal hunting scene. ⬡ **Dandidar** — fine vertical zari stripes. Each pattern carries centuries of meaning.",
+  gift: "Our best gifting pieces are the **Ashrafi Buti Stole** (₹3,800) for something accessible and beautiful, the **Chameli Jaal Dupatta** (₹5,200) for a memorable fashion gift, or the **Ashrafi Buti Saree** (₹14,500) for a truly heirloom occasion. Each ships with a handwritten weaver card — which makes it feel incredibly personal.",
+  care: "For silk pieces: dry clean or cold hand wash, dry in filtered shade (never direct sun), low iron on reverse only, store rolled in cotton muslin. For cotton-blend pieces like the Table Runner: cold hand wash is fine, medium iron on cotton setting. Treat your Chanderi piece gently and it will last generations.",
+  price: "Our collection ranges from ₹1,800 (Chameli Cushion Cover) to ₹14,500 (Ashrafi Buti Saree). Stoles range ₹3,200–₹3,800, Dupattas ₹5,200–₹6,800, Home pieces ₹1,800–₹8,900. Free shipping on orders above ₹10,000.",
+  weaver: "Our pieces are woven by master artisans in Chanderi: Ramesh Kosale (5th generation, Ashrafi Buti specialist), Sunita Bai (one of few women master weavers, Chameli Jaal), Devlal Vishwakarma (6th generation, last practitioner of Shikargah narrative weaving), and the Mohan Weave Cluster (8 cooperative families). Each piece ships with the weaver's name and story.",
+  sustainability: "Chanderi weaving is among the most low-impact luxury textile processes on earth. Our looms need zero electricity — traditional pit looms only. We use azo-free natural dyes: indigo, turmeric, madder root, pomegranate rind. All packaging is plastic-free: cotton pouches and recycled mulberry paper. Every piece is GI certified and carries a full traceable origin.",
+  shipping: "We ship across India and internationally. Orders above ₹10,000 get free shipping. Standard delivery is 3–7 days for in-stock pieces. Made-to-order masterworks like the Shikargah Wall Hanging or the Ashrafi Saree take 14–22 days. All high-value orders are insured.",
+  zari: "Zari is a flat thread made from fine silver wire coated with gold. Real zari — used in all Suvarna pieces — contains genuine precious metal. It catches light differently at every angle, sometimes warm amber, sometimes a cold gleam. Zari is fully recyclable, which is why antique Chanderi sarees are often gently 'unwoven' to reclaim the gold thread.",
+  default: [
+    "That's a lovely question. Our collection spans stoles, dupattas, sarees and home textiles — all woven in traditional Chanderi silk. Is there something specific I can help you find?",
+    "I'd love to help you explore Suvarna Chanderi. You can ask me about our patterns, weavers, pricing, care instructions, or sustainability practices.",
+    "Chanderi weaving is a living art form — each piece is unique. Can I help you find the right piece for your occasion or space?",
+  ]
+};
+
+function getAIResponse(input) {
+  const q = input.toLowerCase();
+  if (q.match(/hello|hi|namaste|hey|good/)) return AI_KB.greet[Math.floor(Math.random() * AI_KB.greet.length)];
+  if (q.match(/chanderi|silk|fabric|textile|what is|history|origin/)) return AI_KB.chanderi;
+  if (q.match(/pattern|motif|design|buti|jaal|shikargah|dandidar|chameli|ashrafi/)) return AI_KB.patterns;
+  if (q.match(/gift|gifting|present|occasion|wedding|birthday|anniversary/)) return AI_KB.gift;
+  if (q.match(/care|wash|clean|iron|store|maintain|dry/)) return AI_KB.care;
+  if (q.match(/price|cost|₹|rate|expensive|budget|how much|afford/)) return AI_KB.price;
+  if (q.match(/weaver|artisan|who made|maker|craft|person|ramesh|sunita|devlal|mohan/)) return AI_KB.weaver;
+  if (q.match(/eco|sustain|natural|environment|dye|organic|ethical|green|loom|electric/)) return AI_KB.sustainability;
+  if (q.match(/ship|deliver|dispatch|when|days|arrival|time/)) return AI_KB.shipping;
+  if (q.match(/zari|gold|silver|thread|metal/)) return AI_KB.zari;
+  return AI_KB.default[Math.floor(Math.random() * AI_KB.default.length)];
+}
+
+let chatOpen = false;
+
+function toggleChat() {
+  chatOpen = !chatOpen;
+  const win = document.getElementById('aiChatWindow');
+  const bubble = document.getElementById('aiBubble');
+  win.classList.toggle('open', chatOpen);
+  bubble.classList.toggle('open', chatOpen);
+  // Remove ping on first open
+  const ping = document.querySelector('.ai-bubble-ping');
+  if (chatOpen && ping) ping.style.display = 'none';
+  if (chatOpen) setTimeout(() => document.getElementById('aiInput').focus(), 350);
+}
+
+function quickReply(text) {
+  // Remove quick reply buttons
+  const qr = document.getElementById('quickReplies');
+  if (qr) qr.remove();
+  appendUserMessage(text);
+  triggerBotResponse(text);
+}
+
+function sendMessage() {
+  const input = document.getElementById('aiInput');
+  const text = input.value.trim();
+  if (!text) return;
+  input.value = '';
+  const qr = document.getElementById('quickReplies');
+  if (qr) qr.remove();
+  appendUserMessage(text);
+  triggerBotResponse(text);
+}
+
+function appendUserMessage(text) {
+  const msgs = document.getElementById('aiMessages');
+  const el = document.createElement('div');
+  el.className = 'ai-msg ai-msg-user';
+  el.innerHTML = `
+    <div class="ai-msg-bubble">${text}</div>
+    <div class="ai-msg-time">Just now</div>
+  `;
+  msgs.appendChild(el);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function triggerBotResponse(userText) {
+  const msgs = document.getElementById('aiMessages');
+  // Show typing
+  const typingEl = document.createElement('div');
+  typingEl.className = 'ai-msg ai-msg-bot ai-typing';
+  typingEl.id = 'aiTyping';
+  typingEl.innerHTML = `
+    <div class="ai-typing-dots">
+      <span></span><span></span><span></span>
+    </div>
+  `;
+  msgs.appendChild(typingEl);
+  msgs.scrollTop = msgs.scrollHeight;
+
+  const delay = 900 + Math.random() * 600;
+  setTimeout(() => {
+    const typing = document.getElementById('aiTyping');
+    if (typing) typing.remove();
+    const response = getAIResponse(userText);
+    const el = document.createElement('div');
+    el.className = 'ai-msg ai-msg-bot';
+    el.innerHTML = `
+      <div class="ai-msg-bubble">${response}</div>
+      <div class="ai-msg-time">Just now</div>
+    `;
+    msgs.appendChild(el);
+    msgs.scrollTop = msgs.scrollHeight;
+  }, delay);
+}
+</script>
+</body>
+</html>
